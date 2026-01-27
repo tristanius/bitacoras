@@ -112,7 +112,7 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('box-layout') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('airports.index') }}">Consultas</a></li>
                         </ul>
                     </li>
 

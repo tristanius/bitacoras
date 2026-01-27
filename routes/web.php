@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AirportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,7 +20,19 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/test-design', function () {
     return view('layouts.admin');
-})->middleware(['auth', 'verified'])->name('test-design');;
+})->middleware(['auth', 'verified'])->name('test-design');
+
+
+// Gestión de Aeropuertos
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+    Route::resource('airports', AirportController::class);
+    // Ruta rápida para activar/desactivar
+    Route::patch('airports/{airport}/toggle', [AirportController::class, 'toggleStatus'])->name('airports.toggle');
+});
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::delete('airports/{airport}', [AirportController::class, 'destroy'])->name('airports.destroy');
+});
 
 // Dashboards
 Route::view('dashboard', 'dashboards.default_dashboard')->middleware(['auth', 'verified'])->name('dashboard');;
