@@ -24,6 +24,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'license_number',
+        'medical_certificate_expiry',
+        'phone',
+        'is_active',
+        'doc_number',
     ];
 
     /**

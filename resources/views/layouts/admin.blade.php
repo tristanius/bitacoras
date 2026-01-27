@@ -50,6 +50,7 @@
     </div>
     <!-- scripts start-->
     @include('layout.script')
+    @stack('scripts')
     <!-- scripts end-->
 </body>
 

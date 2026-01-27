@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('license_number')->nullable()->after('email');
-            $table->date('medical_certificate_expiry')->nullable()->after('license_number');
-            $table->string('phone')->nullable()->after('medical_certificate_expiry');
+            $table->string('doc_type')->default('DUI')->after('email'); // DUI, NIT, Cédula
+            $table->string('doc_number')->unique()->nullable()->after('doc_type');
         });
     }
 
@@ -24,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['license_number', 'medical_certificate_expiry', 'phone']);
+            //
         });
     }
 };

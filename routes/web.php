@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\AircraftController;
+use App\Http\Controllers\PilotController;
 use Illuminate\Support\Facades\Route;
 
 //welcome
@@ -48,6 +49,16 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::delete('aircraft/{aircraft}', [AircraftController::class, 'destroy'])->name('aircraft.destroy');
 });
+
+//Gestión de pilotos
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+    Route::get('pilots', [PilotController::class, 'index'])->name('pilots.index');
+    Route::post('pilots', [PilotController::class, 'store'])->name('pilots.store'); 
+    Route::put('pilots/{pilot}', [PilotController::class, 'update'])->name('pilots.update');
+    Route::patch('pilots/{pilot}/toggle', [PilotController::class, 'toggleStatus'])->name('pilot.toggle');
+    Route::delete('pilots/{pilot}', [PilotController::class, 'destroy'])->name('pilots.destroy');
+});
+
 
 // -------------------------------------------------------------------------------------------------------
 // Dashboards

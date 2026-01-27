@@ -99,7 +99,7 @@
                             <span >3.1. Pilotos</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo registro</a></li>
+                            <li><a href="{{ route('pilots.index') }}">Add. nuevo registro</a></li>
                         </ul>
                     </li>
 
