@@ -2,22 +2,26 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AirportController;
+use App\Http\Controllers\AircraftController;
 use Illuminate\Support\Facades\Route;
 
+//welcome
 Route::get('/', function () {
     return view('welcome');
 });
-
+//raiz
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('cuenta');
 
+//Middleware de profile x auth
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// vista de pruebas
 Route::get('/test-design', function () {
     return view('layouts.admin');
 })->middleware(['auth', 'verified'])->name('test-design');
@@ -34,6 +38,18 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::delete('airports/{airport}', [AirportController::class, 'destroy'])->name('airports.destroy');
 });
 
+// Gestión de Aeronaves
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+    Route::resource('aircraft', AircraftController::class);
+    // Ruta rápida para activar/desactivar
+    Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
+});
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::delete('aircraft/{aircraft}', [AircraftController::class, 'destroy'])->name('aircraft.destroy');
+});
+
+// -------------------------------------------------------------------------------------------------------
 // Dashboards
 Route::view('dashboard', 'dashboards.default_dashboard')->middleware(['auth', 'verified'])->name('dashboard');;
 

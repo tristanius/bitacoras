@@ -17,7 +17,7 @@ class AirportController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'icao_code' => 'required|unique:airports|max:4',
+            'icao_code' => 'required|unique:airports|max:5',
             'name'      => 'required|string|max:255',
         ]);
 

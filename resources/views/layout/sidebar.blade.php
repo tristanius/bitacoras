@@ -75,6 +75,17 @@
                             <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
                             <li><a href="{{ route('layout-rtl') }}">informes</a></li>
                         </ul>
+                    </li>                    
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i data-feather="layout"></i>
+                            <span >2.2. Informes</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('layout-rtl') }}">Consulta reportes</a></li>
+                            <li><a href="{{ route('layout-rtl') }}">informes generados</a></li>
+                        </ul>
                     </li>
                     
                     <li class="sidebar-main-title">
@@ -89,8 +100,6 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('box-layout') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">informes</a></li>
                         </ul>
                     </li>
 
@@ -100,8 +109,7 @@
                             <span >3.2. Aeronaves</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aviones</a></li>
                         </ul>
                     </li>
 
@@ -111,19 +119,7 @@
                             <span >3.3. Aeropuertos</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('airports.index') }}">Consultas</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >3.4. Informes</span>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">informes</a></li>
+                            <li><a href="{{ route('airports.index') }}">Gestionar Aeropuertos</a></li>
                         </ul>
                     </li>
 

@@ -40,7 +40,7 @@
         <div class="page-body">
             @yield('content')
             {{-- main body content --}}
-            <!-- @yield('main-content') -->
+           
 
         </div>
         <!-- footer start-->
