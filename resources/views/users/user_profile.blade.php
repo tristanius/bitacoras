@@ -324,7 +324,7 @@
                                     <div class="post-header">
                                         <div class="d-flex"><img class="img-thumbnail rounded-circle me-3"
                                                 src="{{ asset('assets/images/user/7.jpg') }}" alt="Generic placeholder image">
-                                            <div class="flex-grow-1 align-self-center"><a href="{{ route('social_app')}}">
+                                            <div class="flex-grow-1 align-self-center"><a href="">
                                                     <h5 class="user-name">Emay Walter</h5>
                                                 </a>
                                                 <h6>22 Hours ago</h6>
@@ -385,7 +385,7 @@
                                     <div class="post-header">
                                         <div class="d-flex"><img class="img-thumbnail rounded-circle me-3"
                                                 src="{{ asset('assets/images/user/7.jpg') }}" alt="Generic placeholder image">
-                                            <div class="flex-grow-1 align-self-center"><a href="{{ route('social_app')}}">
+                                            <div class="flex-grow-1 align-self-center"><a href="">
                                                     <h5 class="user-name">Emay Walter</h5>
                                                 </a>
                                                 <h6>5 Hours ago</h6>
@@ -453,7 +453,7 @@
                                     <div class="post-header">
                                         <div class="d-flex"><img class="img-thumbnail rounded-circle me-3"
                                                 src="{{ asset('assets/images/user/7.jpg') }}" alt="Generic placeholder image">
-                                            <div class="flex-grow-1 align-self-center"><a href="{{ route('social_app')}}">
+                                            <div class="flex-grow-1 align-self-center"><a href="">
                                                     <h5 class="user-name">Emay Walter</h5>
                                                 </a>
                                                 <h6>2 Hours ago</h6>

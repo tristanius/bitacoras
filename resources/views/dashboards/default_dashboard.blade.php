@@ -29,12 +29,13 @@
                 <div class="card profile-greeting">
                     <div class="card-body">
                         <div>
-                            <h1>Welcome,William</h1>
-                            <p> You have completed 40% of your this week! Start a new goal & improve your result</p><a
-                                class="btn" href="{{ route('user-profile') }}">Continue<i data-feather="arrow-right"></i></a>
+                            <h1>Welcome,  {{ Auth::user()->name }} </h1>
+                            <p>  {{ Auth::user()->getRoleNames()->first() }} </p>
+                            <a class="btn" href="{{ route('user-profile') }}">Mi cuenta<i data-feather="arrow-right"></i></a>
                         </div>
-                        <div class="greeting-img"><img class="img-fluid"
-                                src="{{ asset('assets/images/dashboard/profile-greeting/bg.png') }}" alt=""></div>
+                        <div class="greeting-img">
+                            <img class="img-fluid" src="{{ asset('assets/images/dashboard/profile-greeting/bg.png') }}" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +75,7 @@
                                         <td>
                                             <div class="d-flex"> <img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/activity/1.jpg') }}" alt="">
-                                                <div class="flex-grow-1"><a href="{{ route('to_do') }}">
+                                                <div class="flex-grow-1"><a href="">
                                                         <h5>Review request jim Smith</h5>
                                                     </a>
                                                     <p>jan 03 19 12:25 PM at Tame</p>
@@ -89,7 +90,7 @@
                                         <td>
                                             <div class="d-flex"><img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/activity/2.jpg') }}" alt="">
-                                                <div class="flex-grow-1"> <a href="{{ route('to_do') }}">
+                                                <div class="flex-grow-1"> <a href="">
                                                         <h5>New contact added</h5>
                                                     </a>
                                                     <p>jan 02 19 03:10 PM at Fresno</p>
@@ -104,7 +105,7 @@
                                         <td>
                                             <div class="d-flex"> <img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/activity/3.jpg') }}" alt="">
-                                                <div class="flex-grow-1"> <a href="{{ route('to_do') }}">
+                                                <div class="flex-grow-1"> <a href="">
                                                         <h5>Sent review (504)236-7302</h5>
                                                     </a>
                                                     <p>jan 02 19 07:35 PM at Iris</p>
@@ -118,68 +119,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="code-box-copy">
-                            <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#activity-view"
-                                title="" data-bs-original-title="Copy" aria-label="Copy"><i
-                                    class="icofont icofont-copy-alt"></i></button>
-                            <pre><code class="language-html" id="activity-view">&lt;div class="card activity-review"&gt;
-&lt;div class="card-header pb-0"&gt;
-&lt;h3&gt; Activity &lt;/h3&gt;
-&lt;div class="card-header-right"&gt;
- &lt;ul class="list-unstyled card-option"&gt;
-     &lt;li&gt;
-         &lt;div&gt;&lt;i class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;
-     &lt;/li&gt;
-    &lt;li&gt;&lt;i class="view-html fa fa-code"&gt;&lt;/i&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;i class="icofont icofont-maximize full-card"&gt;&lt;/i&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;i class="icofont icofont-minus minimize-card"&gt;&lt;/i&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;i class="icofont icofont-refresh reload-card"&gt;&lt;/i&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;i class="icofont icofont-error close-card"&gt;&lt;/i&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="card-body"&gt;
- &lt;div class="table-responsive"&gt;
-     &lt;table class="table table-bordernone"&gt;
-         &lt;tbody&gt;
-             &lt;tr&gt;
-                 &lt;td&gt;
-                     &lt;div class="d-flex"&gt;
-                         &lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/activity/1.jpg') }}" alt="" /&gt;
-                     &lt;div class="flex-grow-1"&gt;
-                       &lt;h5&gt;Review request j im Smith&lt;/h5&gt;
-                       &lt;p&gt;jan 03 2019 12:25 PM at Tamecula&lt;/p&gt;
-                     &lt;/div&gt;
-                   &lt;/div&gt;
-                 &lt;/td&gt;
-               &lt;/tr&gt;
-               &lt;tr&gt;
-                   &lt;td&gt;
-                       &lt;div class="d-flex"&gt;&lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/activity/2.jpg') }}" alt="" /&gt;
-                         &lt;div class="flex-grow-1"&gt;
-                           &lt;h5&gt;New contact added messenger&lt;/h5&gt;
-                           &lt;p&gt;jan 02 2019 03:10 PM at Fresno&lt;/p&gt;
-                         &lt;/div&gt;
-                       &lt;/div&gt;
-                   &lt;/td&gt;
-               &lt;/tr&gt;
-               &lt;tr&gt;
-                   &lt;td&gt;
-                       &lt;div class="d-flex"&gt;
-                           &lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/activity/1.jpg') }}" alt="" /&gt;
-                           &lt;div class="flex-grow-1"&gt;
-                               &lt;h5&gt;Sent review (504)236-7302&lt;/h5&gt;
-                               &lt;p&gt;jan 02 2019 03:10 PM at Fresno&lt;/p&gt;
-                           &lt;/div&gt;
-                         &lt;/div&gt;
-                   &lt;/td&gt;
-               &lt;/tr&gt;
-             &lt;/tbody&gt;
-           &lt;/table&gt;
-         &lt;/div&gt;
-       &lt;/div&gt;
-     &lt;/div&gt;</code></pre>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -218,7 +158,7 @@
                                             <div class="icon"><img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/transaction/1.png') }}" alt="">
                                             </div>
-                                            <div class="flex-grow-1"><a href="{{ route('page-product') }}">
+                                            <div class="flex-grow-1"><a href="">
                                                     <h5>Nike Sports NK</h5>
                                                 </a>
                                                 <p>Free delivery</p>
@@ -251,7 +191,7 @@
                                             <div class="icon"><img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/transaction/2.png') }}" alt="">
                                             </div>
-                                            <div class="flex-grow-1"><a href="{{ route('page-product') }}">
+                                            <div class="flex-grow-1"><a href="">
                                                     <h5>Women Bag</h5>
                                                 </a>
                                                 <p>₹83.65 delivery</p>
@@ -284,7 +224,7 @@
                                             <div class="icon"><img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/transaction/3.png') }}" alt="">
                                             </div>
-                                            <div class="flex-grow-1"><a href="{{ route('page-product') }}">
+                                            <div class="flex-grow-1"><a href="">
                                                     <h5>Sunglasses</h5>
                                                 </a>
                                                 <p>Free delivery</p>
@@ -317,7 +257,7 @@
                                             <div class="icon"><img class="img-fluid"
                                                     src="{{ asset('assets/images/dashboard/transaction/4.png') }}" alt="">
                                             </div>
-                                            <div class="flex-grow-1"><a href="{{ route('page-product') }}">
+                                            <div class="flex-grow-1"><a href="">
                                                     <h5>Cotton T-shirt</h5>
                                                 </a>
                                                 <p>₹283.65 delivery</p>
@@ -350,92 +290,7 @@
                             <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#transaction-view"
                                 title="" data-bs-original-title="Copy" aria-label="Copy"><i
                                     class="icofont icofont-copy-alt"></i></button>
-                            <pre><code class="language-html" id="transaction-view">&lt;div class="card transaction-history"&gt;
-&lt;div class="card-header pb-0"&gt;
-&lt;h3&gt; Transaction&lt;/h3&gt;
-&lt;div class="card-header-right"&gt;
-&lt;ul class="list-unstyled card-option"&gt;
-  &lt;li&gt;&lt;div&gt;&lt;i class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;i class="view-html fa fa-code"&gt;&lt;/i&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;i class="icofont icofont-maximize full-card"&gt;&lt;/i&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;i class="icofont icofont-minus minimize-card"&gt;&lt;/i&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;i class="icofont icofont-refresh reload-card"&gt;&lt;/i&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;i class="icofont icofont-error close-card"&gt;&lt;/i&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="card-body"&gt;
-&lt;div class="table-responsive"&gt;
-&lt;table class="table table-bordernone"&gt;
- &lt;thead&gt;
-   &lt;tr&gt;
-     &lt;th&gt;Item Name&lt;/th&gt;
-     &lt;th&gt;Date and Time&lt;/th&gt;
-     &lt;th&gt;Income&lt;/th&gt;
-     &lt;th&gt;Progress&lt;/th&gt;
-     &lt;th&gt;Status&lt;/th&gt;
-   &lt;/tr&gt;
- &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;div class="d-flex"&gt;
-        &lt;div class="icon"&gt;&lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/transaction/1.png') }}" alt="" /&gt;&lt;/div&gt;&lt;div class="flex-grow-1"&gt;&lt;h5&gt;Nike Sports NK&lt;/h5&gt;
-        &lt;p&gt;Free delivery&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/td&gt;
-      &lt;td&gt;
-       &lt;h5&gt;12 May 2020&lt;/h5&gt;
-       &lt;p&gt;In 6 Days&lt;/p&gt;
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;h5&gt;+$456&lt;/h5&gt;
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;div class="progress-showcase"&gt;
-          &lt;p&gt;65%&lt;/p&gt;
-        &lt;div class="progress" style="height: 5px;"&gt;
-          &lt;div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;h5&gt;Paypal&lt;/h5&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-        &lt;div class="d-flex"&gt;
-          &lt;div class="icon"&gt;&lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/transaction/2.png') }}" alt="" /&gt;&lt;/div&gt;&lt;div class="flex-grow-1"&gt;&lt;h5&gt;Women Bag&lt;/h5&gt;&lt;p&gt;₹83.65 delivery&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;h5&gt;06 May 2020&lt;/h5&gt;
-        &lt;p&gt;In 5 Days&lt;/p&gt;
-      &lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;-$80&lt;/h5&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;div class="progress-showcase"&gt;&lt;p&gt;45%&lt;/p&gt;&lt;div class="progress" style="height: 5px;"&gt;&lt;div class="progress-bar bg-warning" role="progressbar" style="width: 65%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-      &lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;Credit Card&lt;/h5&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;div class="d-flex"&gt;&lt;div class="icon"&gt;&lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/transaction/3.png') }}" alt="" /&gt;&lt;/div&gt;&lt;div class="flex-grow-1"&gt;&lt;h5&gt;Sunglasses&lt;/h5&gt;&lt;p&gt;Free delivery&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;28 Sep 2020&lt;/h5&gt;&lt;p&gt;in 4 Months&lt;/p&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;-$4,232&lt;/h5&gt;&lt;/td&gt;&lt;td&gt;&lt;div class="progress-showcase"&gt;&lt;p&gt;85%&lt;/p&gt;&lt;div class="progress" style="height: 5px;"&gt;&lt;div class="progress-bar bg-danger" role="progressbar" style="width: 65%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;Paypal&lt;/h5&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;div class="d-flex"&gt;&lt;div class="icon"&gt;&lt;img class="img-fluid" src="{{ asset('assets/images/dashboard/transaction/4.png') }}" alt="" /&gt;&lt;/div&gt;&lt;div class="flex-grow-1"&gt;&lt;h5&gt;Cotton T-shirt&lt;/h5&gt;&lt;p&gt;₹283.65 delivery&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;22 Mar 2020&lt;/h5&gt;&lt;p&gt;In 8 Days&lt;/p&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;h5&gt;-$645&lt;/h5&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;div class="progress-showcase"&gt;&lt;p&gt;75%&lt;/p&gt;&lt;div class="progress" style="height: 5px;"&gt;&lt;div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-     &lt;td&gt;&lt;h5&gt;Credit Card&lt;/h5&gt;
-     &lt;/td&gt;
-   &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                            <pre></pre>
                         </div>
                     </div>
                 </div>
@@ -554,88 +409,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 box-col-50 des-xl-50">
-                <div class="card social-shared">
-                    <div class="card-header pb-0">
-                        <h3>Top Social Media Shared</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordernone">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="icon"><a href="https://www.facebook.com/"
-                                                        target="_blank"><img class="img-fluid"
-                                                            src="{{ asset('assets/images/dashboard/social-media/fb.png') }}"
-                                                            alt=""></a></div>
-                                                <div class="flex-grow-1"><a href="https://www.facebook.com/login"
-                                                        target="_blank">
-                                                        <h5>Facebook</h5>
-                                                        <p>Social Media </p>
-                                                    </a></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex"><i class="fa fa-arrow-up font-success me-2"></i>
-                                                <h5>3.7%</h5>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h5>$24,000 </h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="icon"><a href="https://www.instagram.com/accounts/login/"
-                                                        target="_blank"><img class="img-fluid"
-                                                            src="{{ asset('assets/images/dashboard/social-media/insta.png') }}"
-                                                            alt=""></a></div>
-                                                <div class="flex-grow-1"><a
-                                                        href="https://www.instagram.com/accounts/login/" target="_blank">
-                                                        <h5>Instagram</h5>
-                                                        <p>Social Media</p>
-                                                    </a></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex"> <i class="fa fa-arrow-up font-success me-2"></i>
-                                                <h5>3.7%</h5>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h5>$33,000</h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="icon"><a href="https://www.twitter.com/login"
-                                                        target="_blank"><img class="img-fluid"
-                                                            src="{{ asset('assets/images/dashboard/social-media/twit.png') }}"
-                                                            alt=""></a></div>
-                                                <div class="flex-grow-1"><a href="https://www.twitter.com/login"
-                                                        target="_blank">
-                                                        <h5>Twitter</h5>
-                                                        <p>Social Media </p>
-                                                    </a></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex"><i class="fa fa-arrow-up font-success me-2"></i>
-                                                <h5>7.6%</h5>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h5>$72,000 </h5>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="col-xl-4 col-md-6 box-col-50 des-xl-50">
                 <div class="card upgrade-history">
