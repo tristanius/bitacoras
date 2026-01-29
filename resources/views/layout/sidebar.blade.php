@@ -109,7 +109,9 @@
                             <span >3.2. Aeronaves</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aviones</a></li>
+                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aeronave</a></li>
+                            <li><a href="{{ route('aircraft_categories.index') }}">Categorías de Aeronaves</a></li>
+                            <li><a href="{{ route('aircraft_models.index') }}">Modelos de Aeronaves</a></li>
                         </ul>
                     </li>
 

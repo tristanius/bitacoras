@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\PilotController;
+use App\Http\Controllers\AircraftCategoryController;
+use App\Http\Controllers\AircraftModelController;
 use Illuminate\Support\Facades\Route;
 
 //welcome
@@ -35,7 +37,7 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::patch('airports/{airport}/toggle', [AirportController::class, 'toggleStatus'])->name('airports.toggle');
 });
 
-Route::middleware(['auth', 'role:Admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::delete('airports/{airport}', [AirportController::class, 'destroy'])->name('airports.destroy');
 });
 
@@ -46,8 +48,17 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
 });
 
-Route::middleware(['auth', 'role:Admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::delete('aircraft/{aircraft}', [AircraftController::class, 'destroy'])->name('aircraft.destroy');
+});
+
+// Getión de categorias de aeronaves.
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+    Route::resource('aircraft_categories', AircraftCategoryController::class);
+});
+// Getión de categorias de modelos.
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+    Route::resource('aircraft_models', AircraftModelController::class);
 });
 
 //Gestión de pilotos
