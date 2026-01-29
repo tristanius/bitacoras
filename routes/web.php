@@ -45,6 +45,7 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::resource('aircraft', AircraftController::class);
     // Ruta rápida para activar/desactivar
+    Route::put('aircraft/{aircraft}', [AircraftController::class, 'update'])->name('aircraft.update');
     Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
 });
 
@@ -56,7 +57,7 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::resource('aircraft_categories', AircraftCategoryController::class);
 });
-// Getión de categorias de modelos.
+// Getión de modelos.
 Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::resource('aircraft_models', AircraftModelController::class);
 });

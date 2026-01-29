@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Categoría Técnica </label>
-                        <select class="form-select" name="edit_aircraft_category_id" required id="edit_aircraft_category_id">
+                        <select class="form-select" name="aircraft_category_id" required id="edit_aircraft_category_id">
                             <option value="">Seleccione una categoría...</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>

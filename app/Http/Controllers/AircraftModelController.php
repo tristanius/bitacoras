@@ -28,25 +28,25 @@ class AircraftModelController extends Controller
         return redirect()->route('aircraft_models.index')->with('success', 'Modelo creado con éxito.');
     }
 
-    // ... Métodos update y destroy similares a los de Categorías
-    public function update(Request $request, AircraftModel $aircraft_mod)
+    public function update(Request $request, AircraftModel $aircraftModel)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255,' . $aircraft_mod->id,
+            // Nota el cambio a 'unique:tabla,columna,id_a_ignorar'
+            'name' => 'required|string|max:255|unique:aircraft_models,name,' . $aircraftModel->id,
             'manufacturer' => 'required|string|max:255',
             'aircraft_category_id' => 'required|exists:aircraft_categories,id',
         ]);
 
-        $aircraft_mod->update($validated);
+        $aircraftModel->update($validated);
 
         return redirect()->route('aircraft_models.index')
-                        ->with('success', 'Modelo actualizado correctamente.');
+            ->with('success', 'Modelo actualizado correctamente.');
     }
 
-    public function destroy(AircraftCategory $aircraft_mod)
+    public function destroy(AircraftCategory $aircraftModel)
     {
         // Opcional: Validar si tiene modelos asociados antes de borrar
-        $aircraft_mod->delete();
+        $aircraftModel->delete();
 
         return redirect()->route('aircraft_models.index')
                         ->with('success', 'Modelo eliminado con éxito.');

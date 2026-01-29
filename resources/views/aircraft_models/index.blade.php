@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+@include('partials.alerts')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
@@ -88,8 +89,7 @@
         // Llenamos los campos del modal
         $('#edit_name').val(name);
         $('#edit_manufacturer').val(manufacturer);
-        $('#edit_aircraft_category_id').val(category_id); // Esto seleccionará el option correcto
-        
+        $('#edit_aircraft_category_id').val(category_id).trigger('change'); // Esto seleccionará el option correcto
         // Mostramos el modal de edición
         var editModal = new bootstrap.Modal(document.getElementById('modalEditModel'));
         editModal.show();

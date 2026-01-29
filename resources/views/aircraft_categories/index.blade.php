@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="page-title">
@@ -60,6 +65,12 @@
 @include('aircraft_categories.update_modal')
 
 @endsection
+
+@section('scripts')
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+@endsection
+
 
 @push('scripts')
 <script>

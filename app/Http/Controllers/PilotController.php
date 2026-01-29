@@ -25,12 +25,12 @@ class PilotController extends Controller
     {
         $validated = $request->validate([
             'doc_number' => 'required|unique:users,doc_number',
-            'doc_type'=> 'required|email|unique:users',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'license_number' => 'required|unique:users',
+            'doc_type'   => 'required|string|max:25', // CAMBIADO: Antes decía 'email'
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|unique:users,email',
+            'license_number' => 'required|unique:users,license_number',
             'medical_certificate_expiry' => 'required|date',
-            'phone' => 'nullable|string',
+            'phone'      => 'nullable|string',
         ]);
 
         $user = \App\Models\User::create([
@@ -70,7 +70,7 @@ class PilotController extends Controller
     {
         // Verificación de seguridad para el Admin
         if (!auth()->user()->hasRole('Admin')) {
-            return redirect()->back()->with('error', 'No tienes permiso para eliminar aeronaves.');
+            return redirect()->back()->with('error', 'No tienes permiso para eliminar pilotos.');
         }
         // Opcional: Podrías validar que el piloto no tenga bitácoras asociadas antes de borrar
         

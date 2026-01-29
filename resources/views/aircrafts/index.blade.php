@@ -32,21 +32,23 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id="tabla-aircrafts">
                             <thead>
                                 <tr>
                                     <th>Matricula</th>
                                     <th>Marca / Modelo</th>
-                                    <th>Estado</th>
+                                    <th>Clase (Categorías)</th>                                    
+                                    <th>estado</th>
                                     <th>Cambiar estado</th>
-                                    <th>Eliminar</th>
+                                    <th>acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($aircrafts as $aircraft)
                                 <tr>
                                     <td><strong>{{ $aircraft->registration }}</strong></td>
-                                    <td>{{ $aircraft->brand }} {{ $aircraft->model }}</td>
+                                    <td>{{ $aircraft->aircraft_model->manufacturer }} {{ $aircraft->aircraft_model->name }}</td>
+                                    <td><span class="badge badge-light-success">{{ $aircraft->aircraft_model->category->name }}</span></td>
                                     <td>
                                         <span class="badge {{ $aircraft->is_active ? 'bg-success' : 'bg-danger' }}">
                                             {{ $aircraft->is_active ? 'Activo' : 'Inactivo' }}
@@ -59,12 +61,15 @@
                                         </form>
                                     </td>
                                     <td>
+                                        <button class="btn btn-warning btn-sm" onclick="editAircraft({{ $aircraft->id }}, '{{ $aircraft->registration }}', '{{ $aircraft->aircraft_model->id }}')">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
                                         @role('Admin')
                                             <form action="{{ route('aircraft.destroy', $aircraft) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este aeropuerto?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i> Eliminar
+                                                    <i class="fa fa-trash"></i> 
                                                 </button>
                                             </form>
                                         @endrole
@@ -80,38 +85,42 @@
     </div>
 </div>
 
-
-
-<div class="modal fade" id="createAircraftModal" tabindex="-1" role="dialog" aria-labelledby="createAircraftModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Agregar Nueva Aeronave</h5>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('aircraft.store') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Matrícula (Registration)</label>
-                        <input class="form-control @error('registration') is-invalid @enderror" name="registration" type="text" value="{{ old('registration') }}" placeholder="Ej: TG-ABC" required style="text-transform:uppercase">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Marca</label>
-                        <input class="form-control" name="brand" type="text" placeholder="Ej: Cessna" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Modelo</label>
-                        <input class="form-control" name="model" type="text" placeholder="Ej: 172 Skyhawk" required>
-                    </div>
-                        <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-primary" type="submit">Guardar Aeronave</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('aircrafts.update')
+@include('aircrafts.create')
 
 @endsection
+
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
+@endsection
+
+@section('scripts')
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+@endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#tabla-aircrafts').DataTable({
+            language: { url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' }
+        });
+    });
+
+    function editAircraft(id, registration, model_id) {
+        // Seteamos la URL del form
+        $('#formeditAircraft').attr('action', '/aircraft/' + id);
+        
+        // Llenamos los campos del modal
+        
+        $('#edit_registration').val(registration);
+        $('#edit_aircraft_model_id').val(model_id); // Esto seleccionará el option correcto
+        
+        // Mostramos el modal de edición
+        var editModal = new bootstrap.Modal(document.getElementById('modaleditAircraft'));
+        editModal.show();
+    }
+</script>
+@endpush

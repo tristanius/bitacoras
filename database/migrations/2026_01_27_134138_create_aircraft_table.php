@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('aircraft', function (Blueprint $table) {
             $table->id();
             $table->string('registration')->unique();
-            $table->string('model');
-            $table->string('brand');
-            $table->boolean('is_active')->default(true);
+            // Relación obligatoria: sin "nullable" ni "set null"
+            $table->foreignId('aircraft_model_id')->constrained(); 
+            $table->boolean('is_active')->default(true); // Tu convención correcta
             $table->timestamps();
         });
     }

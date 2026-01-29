@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AircraftModel extends Model
 {
-    protected $fillable = ['name', 'manufacturer'];
+    protected $fillable = [
+        'name', 
+        'manufacturer', 
+        'aircraft_category_id'
+    ];
 
     // Relación: Una categoría tiene muchos modelos de avión
     public function category()

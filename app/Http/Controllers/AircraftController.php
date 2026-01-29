@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
+use App\Models\AircraftModel;
 use Illuminate\Http\Request;
 
 class AircraftController extends Controller
@@ -12,8 +13,13 @@ class AircraftController extends Controller
      */
     public function index()
     {
-        $aircrafts = Aircraft::all();
-        return view('aircraft.index', compact('aircrafts'));
+        // Traemos las aeronaves con su modelo y la categoría de ese modelo
+        $aircrafts = Aircraft::with('aircraft_model.category')->get();
+        
+        // Traemos los modelos para el select del Modal
+        $models = AircraftModel::with('category')->get(); 
+        
+        return view('aircrafts.index', compact('aircrafts', 'models'));
     }
 
     /**
@@ -23,8 +29,8 @@ class AircraftController extends Controller
     {
         $validated = $request->validate([
             'registration' => 'required|unique:aircraft|max:20',
-            'brand'        => 'required|string|max:100',
-            'model'        => 'required|string|max:100',
+            #'brand'        => 'required|string|max:100',
+            'aircraft_model_id' => 'required|exists:aircraft_models,id', // El select
         ]);
 
         // Estandarizamos la matrícula a mayúsculas (Ej: tg-abc -> TG-ABC)
@@ -34,6 +40,18 @@ class AircraftController extends Controller
 
         #return redirect()->route('aircraft.index')->with('success', 'Aeronave registrada con éxito.');
         return redirect()->back()->with('success', 'Aeronave registrada con éxito.');
+    }
+
+    public function update(Request $request, Aircraft $aircraft)
+    {
+        $validated = $request->validate([
+            'registration' => 'required|unique:aircrafts,registration',
+            'aircraft_model_id' => 'required|exists:aircraft_models,id',
+        ]);
+
+        $aircraft->update($validated);
+
+        return redirect()->back()->with('success', 'Aeronave actualizada.');
     }
 
     /**
