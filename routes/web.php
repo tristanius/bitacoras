@@ -6,6 +6,7 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\PilotController;
 use App\Http\Controllers\AircraftCategoryController;
 use App\Http\Controllers\AircraftModelController;
+use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\LogEntryController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,8 +73,11 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::delete('pilots/{pilot}', [PilotController::class, 'destroy'])->name('pilots.destroy');
 });
 
-// Logbook y log_entries
-Route::resource('log-entries', LogEntryController::class);
+// Rutas para Logbooks (Carpetas)
+Route::resource('logbooks', LogbookController::class);
+
+// Rutas para LogEntries (Vuelos)
+Route::resource('log_entries', LogEntryController::class);
 Route::post('/log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
 
 

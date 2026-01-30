@@ -71,8 +71,8 @@
                             <span >2.1. Bitácoras</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('log-entries.create') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('log_entries.create') }}">Add. nuevo registro</a></li>
+                            <li><a href="{{ route('logbooks.index') }}">logbooks</a></li>
                             <li><a href="{{ route('layout-rtl') }}">informes</a></li>
                         </ul>
                     </li>                    
