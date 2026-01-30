@@ -3,6 +3,8 @@
 @section('content')
 
 @include('partials.alerts')
+@include('partials.monserrat_font')
+
  <br>
 <div class="container-fluid card">
     <div class="page-title-box d-sm-flex align-items-center justify-content-between">

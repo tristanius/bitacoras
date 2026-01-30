@@ -2,6 +2,7 @@
 @section('content')
 
 @include('partials.alerts')
+@include('partials.monserrat_font')
 
 <div class="container-fluid">
     <div class="page-title">

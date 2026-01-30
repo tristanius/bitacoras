@@ -16,9 +16,7 @@
         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
       </div>
       <div class="left-header col horizontal-wrapper ps-0">
-        <div class="input-group">
-          <input class="form-control" type="text" placeholder="Search Here........"><span class="input-group-text mobile-search"><i data-feather="search"></i></span>
-        </div>
+        
       </div>
       <div class="nav-right col-6 pull-right right-header p-0">
         <ul class="nav-menus">
@@ -33,24 +31,7 @@
               </div>
             </div>
           </li>
-          <li>
-            <div class="mode"><i data-feather="moon"></i></div>
-          </li>
-          
-          <li class="onhover-dropdown">
-            <div class="notification-box"><i data-feather="bell"></i><span class="badge rounded-pill badge-primary">4                                </span></div>
-            <ul class="notification-dropdown onhover-show-div">
-              <li><i data-feather="bell">            </i>
-                <h3 class="mb-0">Notifications</h3>
-              </li>
-              <li><a href="{{ route('email_read')}}">
-                  <p><i class="fa fa-circle-o me-3 font-primary"> </i>Delivery processing <span class="pull-right">10 min.</span></p></a></li>
-              <li><a href="{{ route('email_read')}}">
-                  <p><i class="fa fa-circle-o me-3 font-danger"></i>Delivery Complete<span class="pull-right">6 hr</span></p></a></li>
-              <li><a class="btn btn-primary" href="{{ route('email_read')}}">Check all notification</a></li>
-            </ul>
-          </li>
-          
+                    
           <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
           <li class="profile-nav onhover-dropdown p-0 me-0">
             <div class="d-flex profile-media"><img class="b-r-50" src="{{ asset('assets/images/dashboard/profile.png') }}" alt="">
@@ -60,7 +41,7 @@
             </div>
             <ul class="profile-dropdown onhover-show-div">
               <li><a href="{{ route('user-profile')}}"><i data-feather="user"></i><span>Account </span></a></li>
-              <li><a href="{{ route('login')}}"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+              <li><a href="{{ route('logout')}}"><i data-feather="log-out"> </i><span>Log out</span></a></li>
             </ul>
           </li>
         </ul>

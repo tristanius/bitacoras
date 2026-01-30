@@ -1,14 +1,15 @@
 @extends('layouts.admin')
 
 @include('partials.alerts')
+@include('partials.monserrat_font')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
 @endsection
 
-
 @section('content')
+
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">

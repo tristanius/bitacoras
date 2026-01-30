@@ -3,6 +3,7 @@
 @section('content')
 
 @include('partials.alerts')
+@include('partials.monserrat_font')
 
 <br>
 <div class="container-fluid">

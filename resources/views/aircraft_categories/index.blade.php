@@ -6,6 +6,7 @@
 @endsection
 
 @include('partials.alerts')
+@include('partials.monserrat_font')
 
 @section('content')
 <div class="container-fluid">

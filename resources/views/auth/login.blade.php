@@ -1,6 +1,12 @@
 @extends('others.layout_others.master')
 
+
 @include('partials.alerts')
+@include('partials.monserrat_font')
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
 @section('others-content')
     <div class="container-fluid">
@@ -36,7 +42,7 @@
                                     <div class="checkbox p-0">
                                         <input id="checkbox1" type="checkbox">
                                         <label class="text-muted" for="checkbox1">Recordar contraseña</label>
-                                    </div><a class="link" href="{{ route('forget-password')}}">olvidó su contraseña?</a>
+                                    </div><a class="link" href="{{ route('password.request') }}">olvidó su contraseña?</a>
                                     <div class="text-end mt-3">
                                         <button class="btn btn-primary btn-block w-100" type="submit">Ingresar</button>
                                     </div>
@@ -48,11 +54,11 @@
                                     
                                 </div>
                                 <p class="mt-4 mb-0 text-center">¿No tienes una cuenta?<a class="ms-2"
-                                        href="{{ route('sign-up')}}">Crear cuenta</a></p>
+                                        href="{{ route('register')}}">Crear cuenta</a></p>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+@endsection

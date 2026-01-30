@@ -17,4 +17,20 @@
     #sidebar-menu .simplebar-offset { 
         min-height: 90vh; 
     }
+    .dataTables_wrapper button.btn-light, .page-wrapper li.sidebar-main-title{
+        color: #183053;
+    }
+    .page-wrapper li.sidebar-main-title > div {
+        background-color: #F47A30;
+    }
+    .page-wrapper li.sidebar-main-title h4{
+        color: #F7F9FC;
+    }
+    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active,
+    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active span,
+    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active div i,
+    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active svg{
+        background-color: #183053;
+        color: #F7F9FC;
+    }
 </style>

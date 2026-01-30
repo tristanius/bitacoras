@@ -1,4 +1,5 @@
 @extends('layout.master')
+@include('partials.monserrat_font')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">

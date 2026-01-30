@@ -1,12 +1,12 @@
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper" id="mysidebar">
     <div>
         
         <div class="logo-wrapper">
             <a href="{{ route('dashboard') }}">
                 <img class="img-fluid for-light"
-                    src="{{ asset('assets/images/logo/logo.png') }}" alt="">
+                    src="{{ asset('assets/images/logo/logo.png') }}" alt="" style="max-width: 10em">
                 <img class="img-fluid for-dark"
-                    src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="">
+                    src="{{ asset('assets/images/logo/logo.png') }}" alt="" style="background-color: #F7F9FC; padding:2px;">
             </a>
             <div class="back-btn">
                 <i class="fa fa-angle-left"></i>
@@ -18,9 +18,9 @@
         <div class="logo-icon-wrapper">
             <a href="{{ route('dashboard') }}">
                 <img class="img-fluid for-light"
-                    src="{{ asset('assets/images/logo/logo-icon.png') }}" alt="">
+                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="">
                 <img class="img-fluid for-dark"
-                    src="{{ asset('assets/images/logo/logo-icon-dark.png') }}" alt="">
+                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="" style="background-color: #F7F9FC; padding:2px;">
             </a>
         </div>        
         
@@ -31,9 +31,9 @@
                     <li class="back-btn">
                         <a href="{{ route('dashboard') }}">
                             <img class="img-fluid for-light"
-                                src="{{ asset('assets/images/logo/logo-icon.png') }}" alt="">
+                                src="{{ asset('assets/images/logo/logo.png') }}" alt="" style="max-width: 10em">
                             <img class="img-fluid for-dark" 
-                                src="{{ asset('assets/images/logo/logo-icon-dark.png') }}" alt="">
+                                src="{{ asset('assets/images/logo/logo.png') }}" alt="" style="background-color: #F7F9FC; padding:2px;">
                             </a>
                         <div class="mobile-back text-end">
                             <span>Back</span>

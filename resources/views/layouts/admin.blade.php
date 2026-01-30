@@ -5,11 +5,12 @@
     <!-- All meta and title start-->
     @include('layout.head')
     <!-- meta and title end-->
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <!-- css start-->
     @include('layout.css')
     <!-- css end-->
-
 </head>
 
 <body>

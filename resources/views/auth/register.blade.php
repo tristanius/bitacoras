@@ -1,52 +1,45 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('others.layout_others.master')
 
-        <!-- Name -->
+@include('partials.alerts')
+@include('partials.monserrat_font')
+
+@section('others-content')
+    <div class="login-card"> {{-- Clase típica de la plantilla Koho --}}
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <div class="login-main"> 
+                <form class="theme-form" method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <h2 class="text-center">Crear Cuenta</h2>
+                    <p class="text-center">Ingrese sus datos personales para registrarse</p>
+                    
+                    <div class="form-group">
+                        <label class="col-form-label">Nombre Completo</label>
+                        <input class="form-control" type="text" name="name" required placeholder="Juan Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Correo Electrónico</label>
+                        <input class="form-control" type="email" name="email" required placeholder="piloto@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Contraseña</label>
+                        <input class="form-control" type="password" name="password" required placeholder="*********">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Confirmar Contraseña</label>
+                        <input class="form-control" type="password" name="password_confirmation" required placeholder="*********">
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <button class="btn btn-primary btn-block w-100 mt-3" type="submit">CREAR CUENTA</button>
+                    </div>
+
+                    <p class="mt-4 mb-0 text-center">¿Ya tienes cuenta?<a class="ms-2" href="{{ route('login') }}">Inicia sesión</a></p>
+                </form>
+            </div>
         </div>
+    </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@endsection
