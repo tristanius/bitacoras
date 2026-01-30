@@ -176,7 +176,7 @@
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('support-ticket') }}">
+                            href="{{ route('logout') }}">
                             <i data-feather="users"></i> 
                             <span>5.2. Salir</span>
                         </a>

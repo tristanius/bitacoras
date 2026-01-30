@@ -9,6 +9,7 @@ use App\Http\Controllers\AircraftModelController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\LogEntryController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 //welcome
 Route::get('/', function () {
@@ -81,6 +82,13 @@ Route::resource('log_entries', LogEntryController::class);
 Route::post('/log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
 
 
+//-----------------------------------
+// Logout
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
 // -------------------------------------------------------------------------------------------------------
 // Dashboards
 Route::view('dashboard', 'dashboards.default_dashboard')->middleware(['auth', 'verified'])->name('dashboard');;
@@ -124,8 +132,6 @@ Route::view('error-page1', 'others.error_page.error_page1')->name('error-page1')
 // Others -> Authentication
 Route::view('login', 'others.authentication.login')->name('login');
 Route::view('sign-up', 'others.authentication.sign_up')->name('sign-up');
-Route::view('sign-up-one', 'others.authentication.sign_up_one')->name('sign-up-one');
-Route::view('sign-up-two', 'others.authentication.sign_up_two')->name('sign-up-two');
 Route::view('unlock', 'others.authentication.unlock')->name('unlock');
 Route::view('forget-password', 'others.authentication.forget_password')->name('forget-password');
 Route::view('reset-password', 'others.authentication.reset_password')->name('reset-password');
