@@ -31,7 +31,13 @@ class PilotController extends Controller
             'license_number' => 'required|unique:users,license_number',
             'medical_certificate_expiry' => 'required|date',
             'phone'      => 'nullable|string',
+            'profile_photo' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('profile_photo')) {
+            $path = $request->file('profile_photo')->store('profiles', 'public');
+            $validated['profile_photo'] = $path;
+        }
 
         $user = \App\Models\User::create([
             'doc_number'=> $validated['doc_number'],
@@ -42,6 +48,7 @@ class PilotController extends Controller
             'medical_certificate_expiry' => $validated['medical_certificate_expiry'],
             'phone' => $validated['phone'],
             'password' => bcrypt($validated['license_number']), // Password inicial = Licencia
+            'profile_photo' => $validated['profile_photo'] ?? null,
         ]);
 
         $user->assignRole('Piloto');
@@ -59,7 +66,21 @@ class PilotController extends Controller
             'license_number' => 'required|unique:users,license_number,' . $pilot->id,
             'medical_certificate_expiry' => 'required|date',
             'phone' => 'nullable|string',
+            'profile_photo' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('profile_photo')) {
+            // 1. Borrar la foto anterior si existe en el disco
+            if ($pilot->profile_photo) {
+                Storage::disk('public')->delete($pilot->profile_photo);
+            }
+            // 2. Guardar la nueva y actualizar el array de datos
+            $path = $request->file('profile_photo')->store('profiles', 'public');
+            $validated['profile_photo'] = $path;
+            } else {
+            // 3. Si no subió foto, nos aseguramos de no sobreescribir con null
+            unset($validated['profile_photo']);
+        }
 
         $pilot->update($validated);
 

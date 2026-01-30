@@ -52,7 +52,23 @@
                         <tr>
                             <td>{{ $pilot->doc_number }}</td>
                             <td>{{ $pilot->doc_type }}</td>
-                            <td>{{ $pilot->name }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-circle symbol-40px me-3">
+                                        @if($pilot->profile_photo)
+                                            <img src="{{ asset('storage/' . $pilot->profile_photo) }}" alt="Avatar" style="object-fit: cover;" height="50">
+                                        @else
+                                            <div class="symbol-label fs-4 fw-bold bg-soft-primary text-primary">
+                                                {{ substr($pilot->name, 0, 1) }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $pilot->name }}</a>
+                                        <span class="text-muted fw-bold" style="font-size: 0.8rem;">{{ $pilot->email }}</span>
+                                    </div>
+                                </div>
+                            </td>
                             <td>{{ $pilot->license_number }}</td>
                             <td class="{{ \Carbon\Carbon::parse($pilot->medical_certificate_expiry)->isPast() ? 'text-danger fw-bold' : '' }}">
                                 {{ $pilot->medical_certificate_expiry }}

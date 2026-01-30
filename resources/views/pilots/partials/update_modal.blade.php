@@ -5,7 +5,7 @@
                                         <h5 class="modal-title">Editar Piloto: {{ $pilot->name }}</h5>
                                         <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
                                     </div>
-                                    <form action="{{ route('pilots.update', $pilot->id) }}" method="POST">
+                                    <form action="{{ route('pilots.update', $pilot->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf @method('PUT')
                                         <div class="modal-body">
                                             <div class="col-md-5 mb-3">
@@ -48,6 +48,18 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Teléfono</label>
                                                 <input class="form-control" name="phone" type="text" value="{{ $pilot->phone }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Foto de Perfil Actual (2Mb max.)</label>
+                                                <div class="mb-2">
+                                                    @if($pilot->profile_photo)
+                                                        <img src="{{ asset('storage/' . $pilot->profile_photo) }}" class="img-thumbnail" width="100">
+                                                    @else
+                                                        <span class="text-muted">Sin foto actual</span>
+                                                    @endif
+                                                </div>
+                                                <input type="file" name="profile_photo" class="form-control" accept="image/*">
+                                                <small class="text-muted">Deje vacío para mantener la foto actual.</small>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

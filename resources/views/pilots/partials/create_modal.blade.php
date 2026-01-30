@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Registrar Nuevo Piloto</h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('pilots.store') }}" method="POST">
+            <form action="{{ route('pilots.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="col-md-5 mb-3">
@@ -54,6 +54,10 @@
                     
                     <div class="alert alert-light-primary" role="alert">
                         <i class="fa fa-info-circle"></i> La contraseña inicial será el <strong>Número de Licencia</strong>.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Foto de Perfil (2Mb max.)</label>
+                        <input type="file" name="profile_photo" class="form-control" accept="image/*">
                     </div>
                 </div>
                 <div class="modal-footer">

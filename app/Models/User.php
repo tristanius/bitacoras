@@ -29,6 +29,7 @@ class User extends Authenticatable
         'phone',
         'is_active',
         'doc_number',
+        'profile_photo',
     ];
 
     /**
@@ -52,5 +53,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(PilotAttachment::class, 'user_id');
     }
 }
