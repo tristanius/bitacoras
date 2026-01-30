@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
 @endsection
 
+@include('partials.alerts')
+
 @section('content')
 <div class="container-fluid">
     <div class="page-title">

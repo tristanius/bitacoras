@@ -6,6 +6,7 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\PilotController;
 use App\Http\Controllers\AircraftCategoryController;
 use App\Http\Controllers\AircraftModelController;
+use App\Http\Controllers\LogEntryController;
 use Illuminate\Support\Facades\Route;
 
 //welcome
@@ -71,6 +72,10 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::delete('pilots/{pilot}', [PilotController::class, 'destroy'])->name('pilots.destroy');
 });
 
+// Logbook y log_entries
+Route::resource('log-entries', LogEntryController::class);
+Route::post('/log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
+
 
 // -------------------------------------------------------------------------------------------------------
 // Dashboards
@@ -122,12 +127,6 @@ Route::view('forget-password', 'others.authentication.forget_password')->name('f
 Route::view('reset-password', 'others.authentication.reset_password')->name('reset-password');
 Route::view('maintenance', 'others.authentication.maintenance')->name('maintenance');
 
-
-// Job Search
-Route::view('job-cards-view', 'job_search.job_cards_view')->name('job-cards-view');
-Route::view('job-list-view', 'job_search.job_list_view')->name('job-list-view');
-Route::view('job-details', 'job_search.job_details')->name('job-details');
-Route::view('job-apply', 'job_search.job_apply')->name('job-apply');
 
 // Learning
 Route::view('learning-list-view', 'learning.learning_list_view')->name('learning-list-view');

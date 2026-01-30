@@ -57,6 +57,6 @@ class User extends Authenticatable
 
     public function attachments()
     {
-        return $this->hasMany(PilotAttachment::class, 'user_id');
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 }
