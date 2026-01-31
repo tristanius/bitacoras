@@ -6,6 +6,8 @@ use App\Models\logentry;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use \App\Models\Aircraft;
+use \App\Models\Airport;
 
 class LogEntryController extends Controller
 {
@@ -13,8 +15,8 @@ class LogEntryController extends Controller
     {
         // Traemos los datos para llenar los selects
         $logbooks = \App\Models\logbook::where('user_id', auth()->id())->get();
-        $aircrafts = \App\Models\Aircraft::all();
-        $airports = \App\Models\Airport::all();
+        $aircrafts = Aircraft::where('is_active', true)->get();
+        $airports = Airport::where('is_active', true)->get();
         $pilots = \App\Models\User::select('id', 'name')->orderBy('name')->get();
 
         return view('log_entries.create', compact('logbooks', 'aircrafts', 'airports', 'pilots'));

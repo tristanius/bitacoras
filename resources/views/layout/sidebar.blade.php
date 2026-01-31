@@ -72,8 +72,7 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('log_entries.create') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('logbooks.index') }}">logbooks</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">informes</a></li>
+                            <li><a href="{{ route('layout-rtl') }}">Informes logbooks</a></li>
                         </ul>
                     </li>                    
 
