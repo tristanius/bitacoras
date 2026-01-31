@@ -25,18 +25,10 @@
                                 <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label>Bitácora</label>
-                                <select name="logbook_id" class="form-select" >
-                                    @foreach($logbooks as $logbook)
-                                        <option value="{{ $logbook->id }}">{{ $logbook->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
                                 <label>Aeronave</label>
                                 <select name="aircraft_id" class="form-select" required>
                                     @foreach($aircrafts as $aircraft)
-                                        <option value="{{ $aircraft->id }}">{{ $aircraft->registration }}</option>
+                                        <option value="{{ $aircraft->id }}"> {{ $aircraft->registration }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -44,7 +36,7 @@
                                 <label>Origen</label>
                                 <select name="origin_id" class="form-select" required>
                                     @foreach($airports as $airport)
-                                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                        <option value="{{ $airport->id }}">{{ $airport->icao_code }} - {{ $airport->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -52,19 +44,9 @@
                                 <label>Destino</label>
                                 <select name="destination_id" class="form-select" required>
                                     @foreach($airports as $airport)
-                                        <option value="{{ $airport->id }}">{{ $airport->name }}</option>
+                                        <option value="{{ $airport->id }}">{{ $airport->icao_code }} - {{ $airport->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-md-12 mb-0">
-                                <label>Piloto al Mando</label>
-                                <input list="pilot_list" id="pilot_search" class="form-control" placeholder="Escriba para buscar piloto...">
-                                <datalist id="pilot_list">
-                                    @foreach($pilots as $pilot)
-                                        <option data-id="{{ $pilot->id }}" value="{{ $pilot->name }}">
-                                    @endforeach
-                                </datalist>
-                                <input type="hidden" name="pilot_id" id="pilot_id">
                             </div>
                         </div>
                     </div>

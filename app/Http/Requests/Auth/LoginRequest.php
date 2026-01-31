@@ -40,6 +40,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        $this->ensureIsNotRateLimited();
         // Validación de estado
         $user = User::where('email', $this->email)->first();
 

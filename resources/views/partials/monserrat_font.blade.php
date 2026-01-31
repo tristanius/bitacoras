@@ -2,6 +2,7 @@
     /* Aplicación global */.
     body {
         font-family: 'Montserrat', sans-serif !important;
+        font-size: 1em;
     }
     body, h1, h2, h3, h4, h5, h6, .btn, .form-control, .sidebar-link, .page-title {
         font-family: 'Montserrat', sans-serif !important;
@@ -13,5 +14,6 @@
     input::placeholder, .text-muted, span, p, a, small {
         font-weight: 400 !important;.
         letter-spacing: 0.1px;
+        font-size: 1em;
     }
 </style>

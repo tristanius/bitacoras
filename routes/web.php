@@ -6,10 +6,11 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\PilotController;
 use App\Http\Controllers\AircraftCategoryController;
 use App\Http\Controllers\AircraftModelController;
-use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\LogEntryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
+
 
 //welcome
 Route::get('/', function () {
@@ -76,8 +77,17 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 
 // Rutas para LogEntries (Vuelos)
 Route::resource('log_entries', LogEntryController::class);
-Route::post('/log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
+Route::post('log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
 
+// USUARIOS
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::resource('usuarios', UserController::class)
+        ->names('users')
+        ->parameters(['usuarios' => 'user']); // <--- Esto obliga a usar {user} en lugar de {usuario}
+    Route::post('/usuarios/{user}/toggle', [UserController::class, 'toggleStatus'])->name('users.toggle');
+    Route::post('/usuarios/{user}/reset', [UserController::class, 'resetPassword'])->name('users.reset');
+});
 
 //-----------------------------------
 // Logout

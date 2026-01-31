@@ -8,18 +8,42 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \App\Models\Aircraft;
 use \App\Models\Airport;
+use \App\Models\User;
 
 class LogEntryController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $query = LogEntry::where('is_active', true);
+
+        // Si es Admin u Oficial, ven TODO
+        if ($user->hasAnyRole(['admin', 'oficial'])) {
+            $entries = $query->orderBy('date', 'desc')->get();
+        } 
+        // Si es Instructor, ve los suyos y los que debe validar
+        elseif ($user->hasRole('instructor')) {
+            $entries = $query->where('user_id', $user->id)
+                            ->orWhere('instructor_id', $user->id)
+                            ->orderBy('date', 'desc')->get();
+        } 
+        // Si es Piloto, solo lo suyo
+        else {
+            $entries = $query->where('user_id', $user->id)
+                            ->orderBy('date', 'desc')->get();
+        }
+
+        return view('log_entries.index', compact('entries'));
+    }
+
     public function create()
     {
-        // Traemos los datos para llenar los selects
-        $logbooks = \App\Models\logbook::where('user_id', auth()->id())->get();
         $aircrafts = Aircraft::where('is_active', true)->get();
         $airports = Airport::where('is_active', true)->get();
-        $pilots = \App\Models\User::select('id', 'name')->orderBy('name')->get();
+        // Solo usuarios que sean pilotos o instructores activos
+        $instructors = User::role('Instructor')->where('is_active', true)->get();
 
-        return view('log_entries.create', compact('logbooks', 'aircrafts', 'airports', 'pilots'));
+        return view('log_entries.create', compact('aircrafts', 'airports', 'instructors'));
     }
 
     public function store(Request $request)
@@ -67,5 +91,53 @@ class LogEntryController extends Controller
 
             return redirect()->back()->with('success', 'Registro completado.');
         });
+    }
+
+    public function edit(LogEntry $logEntry)
+    {
+        $user = auth()->user();
+
+        // SEGURIDAD: Solo el piloto dueño o el instructor asignado pueden editar
+        if ($logEntry->user_id !== $user->id && $logEntry->instructor_id !== $user->id) {
+            abort(403, 'No tiene permiso para editar este registro.');
+        }
+
+        // Cargamos solo los datos activos para los selectores
+        $aircrafts = Aircraft::where('is_active', true)->get();
+        $airports = Airport::where('is_active', true)->get();
+        
+        // Obtenemos usuarios con rol de instructor para el select
+        $instructors = User::role('instructor')->where('is_active', true)->get();
+
+        return view('log_entries.edit', compact('logEntry', 'aircrafts', 'airports', 'instructors'));
+    }
+
+    public function update(Request $request, LogEntry $logEntry)
+    {
+        // 1. Validar datos básicos
+        $request->validate([
+            'aircraft_id' => 'required',
+            'origin_id' => 'required',
+            'destination_id' => 'required',
+            'date' => 'required|date',
+        ]);
+
+        // 2. Lógica especial de Validación (El "OK" del instructor)
+        if (auth()->user()->hasRole('instructor') && $request->has('approve')) {
+            $logEntry->validated = true;
+        }
+
+        // 3. Actualizar el resto de campos
+        $logEntry->update($request->all());
+
+        return redirect()->route('log_entries.index')->with('success', 'Registro actualizado correctamente.');
+    }
+
+    public function destroy(LogEntry $logEntry)
+    {
+        // Solo desactivamos, no borramos de la DB
+        $logEntry->update(['is_active' => false]);
+        
+        return redirect()->route('log_entries.index')->with('warning', 'El registro ha sido anulado.');
     }
 }

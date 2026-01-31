@@ -136,8 +136,7 @@
                             <span >4.1. Usuarios</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo </a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('users.index') }}">Gestionar</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">
@@ -146,8 +145,7 @@
                             <span >4.2. Roles</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo </a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('box-layout') }}"># </a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">
@@ -156,8 +154,7 @@
                             <span >4.3. Permisos de rol</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}">Add. nuevo </a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Consultas</a></li>
+                            <li><a href="{{ route('box-layout') }}"># </a></li>
                         </ul>
                     </li>
 

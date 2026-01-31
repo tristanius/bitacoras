@@ -13,25 +13,3 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<style>
-    #sidebar-menu .simplebar-offset { 
-        min-height: 90vh; 
-    }
-    .dataTables_wrapper button.btn-light, .page-wrapper li.sidebar-main-title{
-        color: #183053;
-    }
-    .page-wrapper li.sidebar-main-title > div {
-        background-color: #F47A30;
-    }
-    .page-wrapper li.sidebar-main-title h4{
-        color: #F7F9FC;
-        letter-spacing: 0px;
-    }
-    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active,
-    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active span,
-    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active div i,
-    #mysidebar .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-link.active svg{
-        background-color: #183053;
-        color: #F7F9FC;
-    }
-</style>

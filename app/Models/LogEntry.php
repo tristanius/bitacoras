@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class logEntry extends Model
+class LogEntry extends Model
 {
     protected $fillable = [
-        'logbook_id', 'aircraft_id', 'origin_id', 'destination_id', 'date',
-        'hobbs_out', 'hobbs_in', 'total_time',
+        'logbook_id', 'aircraft_id', 'origin_id', 'destination_id', 
+        'date','hobbs_out', 'hobbs_in', 'total_time',
         'pic_time', 'sic_time', 'solo_time', 'dual_time', 'cfi_time', 'xc_time',
         'night_time', 'instr_actual', 'instr_sim', 'simulator_time',
         'landings_day', 'landings_night',
-        'approaches', 'holds', 'remarks', 'instructor_id', 'pilot_id', 'instructor_certified_at'
+        'approaches', 'holds', 'remarks', 
+        'instructor_id', 'pilot_id', 'instructor_certified_at',
+        'validated', 'is_active'
     ];
 
-    public function logbook() { return $this->belongsTo(Logbook::class); }
     public function aircraft() { return $this->belongsTo(Aircraft::class); }
     public function instructor() { return $this->belongsTo(User::class, 'instructor_id'); }
     public function origin() { return $this->belongsTo(Airport::class, 'origin_id'); }
