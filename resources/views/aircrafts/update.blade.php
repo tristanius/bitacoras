@@ -8,14 +8,15 @@
             </div>
             <form id="formeditAircraft" action="{{ route('aircraft.store') }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Matrícula (Registration)</label>
-                        <input class="form-control @error('registration') is-invalid @enderror" name="edit_registration" id="edit_registration" type="text" value="{{ old('registration') }}" placeholder="Ej: TG-ABC" required style="text-transform:uppercase">
+                        <input class="form-control @error('registration') is-invalid @enderror" name="registration" id="edit_registration" type="text" value="{{ old('registration') }}" placeholder="Ej: TG-ABC" required style="text-transform:uppercase">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Seleccionar Marca/Modelo</label>
-                        <select class="form-select" name="edit_aircraft_model_id" id="edit_aircraft_model_id" required>
+                        <select class="form-select" name="aircraft_model_id" id="edit_aircraft_model_id" required>
                             <option value="">Seleccione el modelo...</option>
                             @foreach($models as $model)
                                 <option value="{{ $model->id }}">

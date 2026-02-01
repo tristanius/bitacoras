@@ -43,7 +43,7 @@
                     </li>
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>1. General </h4>
+                            <h4>General </h4>
                         </div>
                     </li>
                     <li class="sidebar-list"> 
@@ -61,41 +61,30 @@
                    
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>2. Operaciones </h4>
+                            <h4>Operaciones </h4>
                         </div>
                     </li>
 
                      <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >2.1. Bitácoras</span>
+                            <span >Bitácoras</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('log_entries.create') }}">Add. nuevo registro</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">Informes logbooks</a></li>
+                            <li><a href="{{ route('log_entries.index') }}">Mis vuelos</a></li>
                         </ul>
                     </li>                    
 
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >2.2. Informes</span>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('layout-rtl') }}">Consulta reportes</a></li>
-                            <li><a href="{{ route('layout-rtl') }}">informes generados</a></li>
-                        </ul>
-                    </li>
-                    
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>3. Catalogos maestros</h4>
+                            <h4>Catalogos maestros</h4>
                         </div>
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >3.1. Pilotos</span>
+                            <span >Pilotos</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('pilots.index') }}">Gestionar</a></li>
@@ -105,19 +94,19 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >3.2. Aeronaves</span>
+                            <span >Aeronaves</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aeronave</a></li>
                             <li><a href="{{ route('aircraft_categories.index') }}">Categorías de Aeronaves</a></li>
                             <li><a href="{{ route('aircraft_models.index') }}">Modelos de Aeronaves</a></li>
+                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aeronave</a></li>
                         </ul>
                     </li>
 
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >3.3. Aeropuertos</span>
+                            <span >Aeropuertos</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('airports.index') }}">Gestionar Aeropuertos</a></li>
@@ -126,14 +115,14 @@
 
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>4. Usuarios y roles </h4>
+                            <h4>Usuarios y roles </h4>
                         </div>
                     </li>
 
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >4.1. Usuarios</span>
+                            <span >Usuarios</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('users.index') }}">Gestionar</a></li>
@@ -142,16 +131,7 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
-                            <span >4.2. Roles</span>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}"># </a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >4.3. Permisos de rol</span>
+                            <span >Roles</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('box-layout') }}"># </a></li>
@@ -160,21 +140,21 @@
 
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>5. Cuenta y Datos</h4>
+                            <h4> Cuenta y Datos</h4>
                         </div>
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('support-ticket') }}">
                             <i data-feather="users"></i> 
-                            <span>5.1. Mi cuenta</span>
+                            <span>Mi cuenta</span>
                         </a>
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('logout') }}">
                             <i data-feather="users"></i> 
-                            <span>5.2. Salir</span>
+                            <span>Salir</span>
                         </a>
                     </li>
                 </ul>

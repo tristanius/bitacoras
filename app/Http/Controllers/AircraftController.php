@@ -45,7 +45,7 @@ class AircraftController extends Controller
     public function update(Request $request, Aircraft $aircraft)
     {
         $validated = $request->validate([
-            'registration' => 'required|unique:aircrafts,registration',
+            'registration' => 'required|unique:aircraft,registration,' . $aircraft->id,
             'aircraft_model_id' => 'required|exists:aircraft_models,id',
         ]);
 

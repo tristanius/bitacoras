@@ -53,7 +53,7 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
 });
 
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
     Route::delete('aircraft/{aircraft}', [AircraftController::class, 'destroy'])->name('aircraft.destroy');
 });
 
@@ -62,12 +62,12 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::resource('aircraft_categories', AircraftCategoryController::class);
 });
 // Getión de modelos.
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
     Route::resource('aircraft_models', AircraftModelController::class);
 });
 
 //Gestión de pilotos
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
     Route::get('pilots', [PilotController::class, 'index'])->name('pilots.index');
     Route::post('pilots', [PilotController::class, 'store'])->name('pilots.store'); 
     Route::put('pilots/{pilot}', [PilotController::class, 'update'])->name('pilots.update');
@@ -76,8 +76,28 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 });
 
 // Rutas para LogEntries (Vuelos)
-Route::resource('log_entries', LogEntryController::class);
-Route::post('log-entries', [LogEntryController::class, 'store'])->name('log_entries.store');
+Route::middleware(['auth'])->group(function () {
+    
+    // 1. CRUD Estándar de la Bitácora (Index, Create, Store, Edit, Update, Delete)
+    // Usamos ->parameters para que en todo el sistema el ID se llame {log_entry}
+    Route::resource('log-entries', LogEntryController::class)
+        ->names('log_entries')
+        ->parameters(['log-entries' => 'log_entry']);
+
+    // 2. Acciones Especiales (Validación del Instructor)
+    // Esta ruta permite que el instructor dé el "OK" desde la tabla principal
+    Route::post('/log-entries/{log_entry}/validate', [LogEntryController::class, 'validateEntry'])
+        ->name('log_entries.validate');
+
+    // 3. Generación de Informes (PDF)
+    // Ruta para que el Oficial descargue el reporte de un vuelo específico o mensual
+    Route::get('/log-entries/{log_entry}/pdf', [LogEntryController::class, 'generatePDF'])
+        ->name('log_entries.pdf');
+        
+    Route::get('/log-entries/report/general', [LogEntryController::class, 'generalReport'])
+        ->name('log_entries.report');
+});
+
 
 // USUARIOS
 

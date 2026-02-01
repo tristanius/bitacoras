@@ -23,17 +23,19 @@ class LogEntryController extends Controller
         } 
         // Si es Instructor, ve los suyos y los que debe validar
         elseif ($user->hasRole('instructor')) {
-            $entries = $query->where('user_id', $user->id)
+            $entries = $query->where('pilot_id', $user->id)
                             ->orWhere('instructor_id', $user->id)
                             ->orderBy('date', 'desc')->get();
         } 
         // Si es Piloto, solo lo suyo
         else {
-            $entries = $query->where('user_id', $user->id)
+            $entries = $query->where('pilot_id', $user->id)
                             ->orderBy('date', 'desc')->get();
         }
+        $totalEntries = $entries->count();
+        $totalHours = $entries->sum('total_time'); 
 
-        return view('log_entries.index', compact('entries'));
+        return view('log_entries.index', compact('entries', 'totalEntries', 'totalHours'));
     }
 
     public function create()
@@ -139,5 +141,17 @@ class LogEntryController extends Controller
         $logEntry->update(['is_active' => false]);
         
         return redirect()->route('log_entries.index')->with('warning', 'El registro ha sido anulado.');
+    }
+
+
+    public function validateEntry(LogEntry $logEntry)
+    {
+        // Seguridad: Solo el instructor asignado puede dar el OK
+        if (auth()->id() !== $logEntry->instructor_id) {
+            abort(403);
+        }
+
+        $logEntry->update(['validated' => true]);
+        return back()->with('success', 'Vuelo validado correctamente.');
     }
 }

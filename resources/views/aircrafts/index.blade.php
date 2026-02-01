@@ -40,7 +40,7 @@
                                     <th>Marca / Modelo</th>
                                     <th>Clase (Categorías)</th>                                    
                                     <th>estado</th>
-                                    <th>Cambiar estado</th>
+                                    <th>Cambiar</th>
                                     <th>acciones</th>
                                 </tr>
                             </thead>
@@ -58,7 +58,7 @@
                                     <td>
                                         <form action="{{ route('aircraft.toggle', $aircraft) }}" method="POST">
                                             @csrf @method('PATCH')
-                                            <button class="btn btn-sm btn-light">Cambiar Estado</button>
+                                            <button class="btn btn-sm btn-light"><i class="fa fa-rotate-right"></i> {{ $aircraft->is_active ? 'Desactivar' : 'Activar' }}</button>
                                         </form>
                                     </td>
                                     <td>

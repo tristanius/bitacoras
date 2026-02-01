@@ -153,13 +153,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Lógica de búsqueda de piloto
-        document.getElementById('pilot_search').addEventListener('input', function(e) {
-            const list = document.getElementById('pilot_list');
-            const option = Array.from(list.options).find(opt => opt.value === e.target.value);
-            document.getElementById('pilot_id').value = option ? option.getAttribute('data-id') : "";
-        });
-
+        
         // Lógica de cálculo Hobbs
         const hOut = document.getElementById('hobbs_out');
         const hIn = document.getElementById('hobbs_in');
