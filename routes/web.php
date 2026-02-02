@@ -10,21 +10,17 @@ use App\Http\Controllers\LogEntryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
 
 
-//welcome
-Route::get('/', function () {
-    return view('welcome');
-});
-//raiz
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('cuenta');
+Route::get('/', [DashboardController::class, 'index'])->name('/')->middleware(['auth']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth']);
 
 //Middleware de profile x auth
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    #Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -49,7 +45,7 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::resource('aircraft', AircraftController::class);
     // Ruta rápida para activar/desactivar
-    Route::put('aircraft/{aircraft}', [AircraftController::class, 'update'])->name('aircraft.update');
+    #Route::put('aircraft/{aircraft}', [AircraftController::class, 'update'])->name('aircraft.update');
     Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
 });
 
@@ -62,12 +58,12 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
     Route::resource('aircraft_categories', AircraftCategoryController::class);
 });
 // Getión de modelos.
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::resource('aircraft_models', AircraftModelController::class);
 });
 
 //Gestión de pilotos
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::get('pilots', [PilotController::class, 'index'])->name('pilots.index');
     Route::post('pilots', [PilotController::class, 'store'])->name('pilots.store'); 
     Route::put('pilots/{pilot}', [PilotController::class, 'update'])->name('pilots.update');
@@ -98,9 +94,18 @@ Route::middleware(['auth'])->group(function () {
         ->name('log_entries.report');
 });
 
+// Reportes y consultas
+Route::middleware(['auth'])->group(function () {
+    Route::get('/reports/log-entries', [LogEntryController::class, 'reports'])->name('log_entries.reports');
+    Route::get('/reports/log-entries/export', [LogEntryController::class, 'exportCsv'])->name('log_entries.export');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/pilot-pdf', [ReportController::class, 'downloadPilotLogbook'])->name('reports.pilot_pdf');
+    Route::get('/reports/aircraft-pdf', [ReportController::class, 'downloadAircraftLogbook'])->name('reports.aircraft_pdf');
+});
 
 // USUARIOS
-
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('usuarios', UserController::class)
         ->names('users')
@@ -109,52 +114,29 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/usuarios/{user}/reset', [UserController::class, 'resetPassword'])->name('users.reset');
 });
 
+Route::middleware(['auth'])->group(function () {
+    
+    // Vista del Perfil
+    Route::get('/user-profile', [ProfileController::class, 'show'])->name('profile.show');
+    
+    // Actualización de Datos (Nombre, Email, Foto)
+    Route::post('/user-profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    
+    // Actualización de Contraseña
+    Route::post('/user-profile/password', [ProfileController::class, 'passwordUpdate'])->name('user.password.update');
+
+});
+
 //-----------------------------------
 // Logout
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
-
-// -------------------------------------------------------------------------------------------------------
-// Dashboards
-Route::view('dashboard', 'dashboards.default_dashboard')->middleware(['auth', 'verified'])->name('dashboard');;
-
-// Widgets
-Route::view('general-widget', 'widgets.general_widget')->name('general-widget');
-Route::view('chart-widget', 'widgets.chart_widget')->name('chart-widget');
-
-// Page layout
-Route::view('box-layout', 'page_layout.box_layout')->name('box-layout');
-Route::view('layout-rtl', 'page_layout.layout_rtl')->name('layout-rtl');
-Route::view('layout-dark', 'page_layout.layout_dark')->name('layout-dark');
-Route::view('hide-on-scroll', 'page_layout.hide_on_scroll')->name('hide-on-scroll');
-Route::view('footer-light', 'page_layout.footer_light')->name('footer-light');
-Route::view('footer-dark', 'page_layout.footer_dark')->name('footer-dark');
-Route::view('footer-fixed', 'page_layout.footer_fixed')->name('footer-fixed');
-
-
-// Email
-Route::view('email-compose', 'email.email_compose')->name('email_compose');
-Route::view('email-inbox', 'email.email_inbox')->name('email_inbox');
-Route::view('email-read', 'email.email_read')->name('email_read');
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+Route::any('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Users
 Route::view('edit-profile', 'users.edit_profile')->name('edit-profile');
 Route::view('user-cards', 'users.user_cards')->name('user-cards');
-Route::view('user-profile', 'users.user_profile')->name('user-profile');
+//Route::view('user-profile', 'users.user_profile')->name('user-profile');
 
-// Task
-Route::view('tasks', 'tasks')->name('task');
-
-
-// Pages
-Route::view('sample_page', 'pages.sample_page')->name('sample_page');
-Route::view('internationalization', 'pages.internationalization')->name('internationalization');
-
-// Others -> Error pages
-Route::view('error-page1', 'others.error_page.error_page1')->name('error-page1');
 
 // Others -> Authentication
 Route::view('login', 'others.authentication.login')->name('login');
@@ -164,15 +146,5 @@ Route::view('forget-password', 'others.authentication.forget_password')->name('f
 Route::view('reset-password', 'others.authentication.reset_password')->name('reset-password');
 Route::view('maintenance', 'others.authentication.maintenance')->name('maintenance');
 
-
-// Learning
-Route::view('learning-list-view', 'learning.learning_list_view')->name('learning-list-view');
-Route::view('learning-detailed', 'learning.learning_detailed')->name('learning-detailed');
-
-
-// Knowledgebase
-Route::view('knowledgebase', 'knowledgebase.knowledgebase')->name('knowledgebase');
-// Support Ticket
-Route::view('support-ticket', 'support-ticket')->name('support-ticket');
 
 require __DIR__.'/auth.php';

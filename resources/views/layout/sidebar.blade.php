@@ -54,7 +54,6 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a class="lan-3" href="{{ route('dashboard') }}">Default</a></li>
-                            <li><a href="{{ route('chart-widget') }}">Chart</a></li>
                         </ul>
                     </li>
 
@@ -71,11 +70,18 @@
                             <span >Bitácoras</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('log_entries.create') }}">Add. nuevo registro</a></li>
+                            @hasanyrole('Admin|Piloto|Instructor')
                             <li><a href="{{ route('log_entries.index') }}">Mis vuelos</a></li>
+                            @endhasanyrole                            
+                            <li><a href="{{ route('log_entries.reports') }}">Consultas</a></li>
+                            <li><a href="{{ route('reports.index') }}">Reportes</a></li>
+                            @hasanyrole('Admin|Oficial de Operaciones')
+                            <li><a href="{{ route('reports.index') }}">Logbook</a></li>
+                            @endhasanyrole  
                         </ul>
                     </li>                    
-
+                    
+                    @hasanyrole('Admin|Oficial de Operaciones')
                     <li class="sidebar-main-title">
                         <div>
                             <h4>Catalogos maestros</h4>
@@ -90,7 +96,6 @@
                             <li><a href="{{ route('pilots.index') }}">Gestionar</a></li>
                         </ul>
                     </li>
-
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
@@ -112,7 +117,8 @@
                             <li><a href="{{ route('airports.index') }}">Gestionar Aeropuertos</a></li>
                         </ul>
                     </li>
-
+                    @endhasanyrole
+                    @role('Admin')
                     <li class="sidebar-main-title">
                         <div>
                             <h4>Usuarios y roles </h4>
@@ -128,28 +134,30 @@
                             <li><a href="{{ route('users.index') }}">Gestionar</a></li>
                         </ul>
                     </li>
+                    <!--
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
                             <span >Roles</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('box-layout') }}"># </a></li>
+                            <li><a href="># </a></li>
                         </ul>
-                    </li>
+                    </li>-->
+                    @endrole
 
                     <li class="sidebar-main-title">
                         <div>
                             <h4> Cuenta y Datos</h4>
                         </div>
                     </li>
-                    <li class="sidebar-list">
+                   <!--<li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('support-ticket') }}">
+                            href="{{ route('profile.show') }}">
                             <i data-feather="users"></i> 
                             <span>Mi cuenta</span>
                         </a>
-                    </li>
+                    </li>-->
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('logout') }}">

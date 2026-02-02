@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LogEntry extends Model
 {
     protected $fillable = [
-        'logbook_id', 'aircraft_id', 'origin_id', 'destination_id', 
+        'aircraft_id', 'origin_id', 'destination_id', 
         'date','hobbs_out', 'hobbs_in', 'total_time',
         'pic_time', 'sic_time', 'solo_time', 'dual_time', 'cfi_time', 'xc_time',
         'night_time', 'instr_actual', 'instr_sim', 'simulator_time',
@@ -21,9 +21,16 @@ class LogEntry extends Model
     public function instructor() { return $this->belongsTo(User::class, 'instructor_id'); }
     public function origin() { return $this->belongsTo(Airport::class, 'origin_id'); }
     public function destination() { return $this->belongsTo(Airport::class, 'destination_id'); }
+    public function pilot() { return $this->belongsTo(User::class, 'pilot_id'); }
     
     public function attachments()
     {
         return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+    public function aircraft_model()
+    {
+        // Importante: El nombre de la función debe ser aircraft_model
+        return $this->belongsTo(AircraftModel::class, 'aircraft_model_id');
     }
 }

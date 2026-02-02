@@ -48,6 +48,16 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Instructor (Opcional)</label>
+                                <select name="instructor_id" class="form-control select2-instructor">
+                                    <option value="">-- Sin Instructor / Vuelo Solo --</option>
+                                    @foreach($instructors as $instructor)
+                                        <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -151,6 +161,21 @@
     </form>
 </div>
 
+@endsection
+
+@section('scripts')
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
+
+
+
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         
@@ -170,10 +195,13 @@
         hOut.addEventListener('input', calcular);
         hIn.addEventListener('input', calcular);
     });
+    
+    $(document).ready(function() {
+        $('.select2-instructor').select2({
+            placeholder: "Seleccione un instructor (opcional)",
+            allowClear: true,
+            width: '100%'
+        });
+    });
 </script>
-@endsection
-
-@section('scripts')
-<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
-@endsection
+@endpush

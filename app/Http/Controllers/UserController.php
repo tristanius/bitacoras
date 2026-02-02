@@ -11,6 +11,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+        if (!$user->hasAnyRole(['Admin'])) {
+            abort(403, 'No tienes permiso para editar este vuelo.');
+        }
         // Traemos todos los usuarios para que el Oficial los gestione
         $users = User::orderBy('name', 'asc')->get();
         return view('users.index', compact('users'));
