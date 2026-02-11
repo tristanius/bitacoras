@@ -38,7 +38,7 @@
               </div>
             </div>
             <ul class="profile-dropdown onhover-show-div">
-              <li><a href="{{ route('profile.show')}}"><i data-feather="user"></i><span>Account </span></a></li>
+              <li><a href="{{ route('profile.show')}}"><i data-feather="user"></i><span>Mi cuenta </span></a></li>
               <li><a href="{{ route('logout')}}"><i data-feather="log-out"> </i><span>Log out</span></a></li>
             </ul>
           </li>

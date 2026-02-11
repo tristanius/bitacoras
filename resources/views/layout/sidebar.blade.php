@@ -131,13 +131,13 @@
                     </li>-->
                     @endrole
                     <hr>
-                   <!--<li class="sidebar-list">
+                   <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('profile.show') }}">
                             <i data-feather="users"></i> 
                             <span>Mi cuenta</span>
                         </a>
-                    </li>-->
+                    </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('logout') }}">

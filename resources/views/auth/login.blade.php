@@ -1,26 +1,26 @@
 @extends('others.layout_others.master')
 
-    <style>
-         /* Aplicación global */.
-        body {
-            font-family: 'Montserrat', sans-serif !important;
-            font-size: 1em;
-        }
-        body, h1, h2, h3, h4, h5, h6, .btn, .form-control, .sidebar-link, .page-title {
-            font-family: 'Montserrat', sans-serif !important;
-            letter-spacing: 0.1px;
-        }
-    
-        /* Opcional: Para que los textos de los inputs no se vean tan pesados, 
-        podemos dejar el peso normal pero la misma fuente */
-        input::placeholder, .text-muted, span, p, a, small {
-            font-weight: 400 !important;.
-            letter-spacing: 0.1px;
-            font-size: 1em;
-        }
-    </style>
 @include('partials.alerts')
 @section('others-content')
+    <style>
+        /* Aplicación global */.
+    body {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 1em;
+    }
+    body, h1, h2, h3, h4, h5, h6, .btn, .form-control, .sidebar-link, .page-title {
+        font-family: 'Montserrat', sans-serif !important;
+        letter-spacing: 0.1px;
+    }
+
+    /* Opcional: Para que los textos de los inputs no se vean tan pesados, 
+    podemos dejar el peso normal pero la misma fuente */
+    input::placeholder, .text-muted, span, p, a, small {
+        font-weight: 400 !important;.
+        letter-spacing: 0.1px;
+        font-size: 1em;
+    }
+    </style>
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -41,7 +41,7 @@
                         <div class="login-main">
                             <form class="theme-form" method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <h2 class="text-center">Ingresa a tu cuenta</h2>
+                                <h2 class="text-center">Ingresa a tu cuenta </h2>
                                 <p class="text-center">Ingrese su correo y su contraseña para iniciar</p>
                                 <div class="form-group">
                                     <label class="col-form-label">Correo Electrónico</label>
@@ -52,7 +52,7 @@
                                     <div class="form-input position-relative">
                                         <input class="form-control" type="password" name="password" id="password" required=""
                                             placeholder="*********">
-                                        <div class="show-hide"><span class="show"> </span></div>
+                                        <div class="show-hide"><span id="togglePassword" class="show"> </span></div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0">
@@ -78,4 +78,24 @@
                 </div>
             </div>
         </div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+        // Seleccionamos el input
+        const passwordInput = document.getElementById('password');
+        
+        // Alternamos el tipo de input
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    });
+</script>
+
 @endsection
