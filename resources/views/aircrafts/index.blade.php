@@ -48,8 +48,8 @@
                                 @foreach($aircrafts as $aircraft)
                                 <tr>
                                     <td><strong>{{ $aircraft->registration }}</strong></td>
-                                    <td>{{ $aircraft->aircraft_model->manufacturer }} {{ $aircraft->aircraft_model->name }}</td>
-                                    <td><span class="badge badge-light-success">{{ $aircraft->aircraft_model->category->name }}</span></td>
+                                    <td>{{ $aircraft->aircraft_model->manufacturer }} / {{ $aircraft->aircraft_model->name }}</td>
+                                    <td><span class="badge badge-light-primary">{{ $aircraft->aircraft_model->category->name }}</span></td>
                                     <td>
                                         <span class="badge {{ $aircraft->is_active ? 'bg-success' : 'bg-danger' }}">
                                             {{ $aircraft->is_active ? 'Activo' : 'Inactivo' }}

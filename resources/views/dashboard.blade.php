@@ -8,16 +8,17 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" style="background-image: url('{{ asset('assets/images/login/banner.jpeg') }}')">
     
 
     <div class="row">
-        <div class="col-xl-7 col-lg-10">
+        <div class="col-xl-8 col-lg-8">
             <div class="card profile-greeting">
-                <div class="card-body">
+                <div class="card-body" style="background-color: #183053 !important;">
                     <div>
-                        <h1>Welcome,  {{ auth()->user()->name }} </h1>
+                        <h1>Bienvenido,  {{ auth()->user()->name }} </h1>
                         <p>  {{ Auth::user()->getRoleNames()->first() }} </p>
+                        <p>  {{ Auth::user()->email }} </p>
                         <a class="btn" href="{{ route('profile.show') }}">Mi cuenta<i data-feather="arrow-right"></i></a>
                     </div>
                     <div class="greeting-img">
@@ -26,10 +27,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-12">
+        <div class="col-xl-4 col-lg-4">
             <div class="card bg-primary text-white shadow-sm border-0">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
@@ -45,10 +43,17 @@
                         <div class="flex-grow-1 ms-4">
                             <h3 class="mb-1">¡Bienvenido de nuevo, {{ auth()->user()->name }}!</h3>
                             <p class="mb-0 opacity-75">Tienes <strong>{{ $userStats['my_total_hours'] }}</strong> horas acumuladas. Tu último vuelo fue el {{ optional($userStats['my_last_flight'])->date ?? 'N/A' }}.</p>
+                            <br>
+                            <p>Ya estamos listos para el siguiente.<br><br>
+
+                                Alcanza tus metas y mantén tu bitácora siempre al día.<br>
+                                Registra tu próximo vuelo ahora
+                            </p>
                         </div>
                         <div class="text-end d-none d-md-block">
                             <span class="badge bg-light text-primary p-2 px-3 text-uppercase">{{ $userStats['role'] }}</span>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -116,24 +121,6 @@
     <div class="row mt-4">
         <div class="col-lg-8">
             <div class="card shadow-none border">
-                <div class="card-header"><h6>Tendencia Mensual (Horas)</h6></div>
-                <div class="card-body"><canvas id="monthlyChart"></canvas></div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card shadow-none border">
-                <div class="card-header"><h6>Destinos más Visitados</h6></div>
-                <div class="card-body">
-                    <canvas id="destinationsChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-lg-8">
-            <div class="card shadow-none border">
                 <div class="card-header"><h6>Actividad Reciente en Bitácoras</h6></div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -167,6 +154,26 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-none border">
+                <div class="card-header"><h6>Destinos más Visitados</h6></div>
+                <div class="card-body">
+                    <canvas id="destinationsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        
+        
+        <div class="col-lg-8">
+            <div class="card shadow-none border">
+                <div class="card-header"><h6>Tendencia Mensual (Horas)</h6></div>
+                <div class="card-body"><canvas id="monthlyChart"></canvas></div>
             </div>
         </div>
 

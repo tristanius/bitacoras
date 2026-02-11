@@ -113,7 +113,6 @@
                                 <a href="{{ route('log_entries.show', $entry->id) }}" class="btn btn-xs btn-outline-primary"><i class="fa fa-eye"></i></a>
                                 @if($entry->is_active)
                                 <a href="{{ route('log_entries.edit', $entry->id) }}" class="btn btn-xs btn-outline-info"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('log_entries.destroy', $entry->id) }}" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> </a>
                                 {{-- Botón de Deshabilitar --}}
                                 <form action="{{ route('log_entries.destroy', $entry->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Está seguro de deshabilitar este registro?');">
                                     @csrf

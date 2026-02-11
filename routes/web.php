@@ -42,14 +42,14 @@ Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function
 });
 
 // Gestión de Aeronaves
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
     Route::resource('aircraft', AircraftController::class);
     // Ruta rápida para activar/desactivar
     #Route::put('aircraft/{aircraft}', [AircraftController::class, 'update'])->name('aircraft.update');
     Route::patch('aircraft/{aircraft}/toggle', [AircraftController::class, 'toggleStatus'])->name('aircraft.toggle');
 });
 
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
     Route::delete('aircraft/{aircraft}', [AircraftController::class, 'destroy'])->name('aircraft.destroy');
 });
 

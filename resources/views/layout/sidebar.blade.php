@@ -80,13 +80,15 @@
                             @endhasanyrole  
                         </ul>
                     </li>                    
-                    
-                    @hasanyrole('Admin|Oficial de Operaciones')
+                    @hasanyrole('Admin|Oficial de Operaciones|Piloto')
                     <li class="sidebar-main-title">
                         <div>
                             <h4>Catalogos maestros</h4>
                         </div>
                     </li>
+                     @endhasanyrole
+                     
+                    @hasanyrole('Admin|Oficial de Operaciones')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
@@ -96,18 +98,27 @@
                             <li><a href="{{ route('pilots.index') }}">Gestionar</a></li>
                         </ul>
                     </li>
+                    @endhasanyrole
+                    
+                    @hasanyrole('Admin|Oficial de Operaciones|Piloto')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
                             <span >Aeronaves</span>
                         </a>
                         <ul class="sidebar-submenu">
+                            <@hasanyrole('Admin|Oficial de Operaciones')
                             <li><a href="{{ route('aircraft_categories.index') }}">Categorías de Aeronaves</a></li>
                             <li><a href="{{ route('aircraft_models.index') }}">Modelos de Aeronaves</a></li>
+                            @endhasanyrole
+                            @hasanyrole('Admin|Oficial de Operaciones|Piloto')
                             <li><a href="{{ route('aircraft.index') }}">Gestionar Aeronave</a></li>
+                            @endhasanyrole
                         </ul>
                     </li>
-
+                    @endhasanyrole
+                    
+                    @hasanyrole('Admin|Oficial de Operaciones')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <i data-feather="layout"></i>
