@@ -59,4 +59,21 @@ class User extends Authenticatable
     {
         return $this->morphMany(Attachment::class, 'attachable');
     }
+    /**
+     * Las aeronaves asociadas al piloto.
+     */
+    public function aircrafts()
+    {
+        return $this->belongsToMany(Aircraft::class, 'aircraft_user')
+                    ->withTimestamps(); // Para rastrear cuándo se asoció
+    }
+
+    /**
+     * Los aeropuertos (privados o públicos) asociados al piloto.
+     */
+    public function airports()
+    {
+        return $this->belongsToMany(Airport::class, 'airport_user')
+                    ->withTimestamps();
+    }
 }

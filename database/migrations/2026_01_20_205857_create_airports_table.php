@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('airports', function (Blueprint $table) {
             $table->id();
-            $table->string('icao_code',6)->unique();
+            $table->string('icao_code', 10)->unique();
             $table->string('name');
             $table->string('city')->nullable();
             $table->boolean('is_active')->default(true);

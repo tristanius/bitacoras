@@ -25,11 +25,11 @@
         </div>
         <hr>
         
-        @error('registration')
+        <!--@error('registration')
             <div class="text-danger mt-1" style="color: #ff8300 !important;">
                 <strong>La matrícula (registration) "{{ old('registration') }}" ya existe.</strong>
             </div>
-        @enderror
+        @enderror -->
     </div>    
     
     <div class="row">
@@ -44,8 +44,13 @@
                                     <th>Marca / Modelo</th>
                                     <th>Clase (Categorías)</th>                                    
                                     <th>estado</th>
+
+                                    @if(auth()->user()->hasRole('Admin'))
                                     <th>Cambiar</th>
-                                    <th>acciones</th>
+                                    @endif
+                                    <th>Editar</th>
+
+                                    <th>Detach</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,32 +59,41 @@
                                     <td><strong>{{ $aircraft->registration }}</strong></td>
                                     <td>{{ $aircraft->aircraft_model->manufacturer }} / {{ $aircraft->aircraft_model->name }}</td>
                                     <td>
-                                        <span class="badge badge-light-primary">{{ $aircraft->aircraft_model->category->name }}</span>
+                                        <span class="badge badge-light-primary">
+                                            {{ $aircraft->aircraft_model->category->name }}
+                                        </span> - {{ $aircraft->aircraft_model->category->description }}
                                     </td>
                                     <td>
                                         <span class="badge {{ $aircraft->is_active ? 'bg-success' : 'bg-danger' }}">
                                             {{ $aircraft->is_active ? 'Activo' : 'Inactivo' }}
                                         </span>
                                     </td>
+                                    @if(auth()->user()->hasRole('Admin'))
                                     <td>
                                         <form action="{{ route('aircraft.toggle', $aircraft) }}" method="POST">
                                             @csrf @method('PATCH')
                                             <button class="btn btn-sm btn-light"><i class="fa fa-rotate-right"></i> {{ $aircraft->is_active ? 'Desactivar' : 'Activar' }}</button>
                                         </form>
                                     </td>
+                                    @endif
                                     <td>
                                         <button class="btn btn-warning btn-sm" onclick="editAircraft({{ $aircraft->id }}, '{{ $aircraft->registration }}', '{{ $aircraft->aircraft_model->id }}')">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        @role('Admin')
-                                            <form action="{{ route('aircraft.destroy', $aircraft) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este aeropuerto?');">
+                                    </td>
+                                    <td>
+                                        @if(auth()->user()->hasRole('Admin'))
+                                            <form action="{{ route('aircraft.destroy', $aircraft->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta aeronave permanentemente?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i> 
-                                                </button>
+                                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
                                             </form>
-                                        @endrole
+                                        @else
+                                            <form action="{{ route('aircraft.detach', $aircraft->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-xs">Detach</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

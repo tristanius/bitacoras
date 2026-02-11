@@ -27,4 +27,10 @@ class Aircraft extends Model
         // y que en 'aircraft' tienes la llave 'model_id'
         return $this->belongsTo(AircraftModel::class, 'aircraft_model_id'); 
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'aircraft_user')
+                    ->withTimestamps();
+    }
 }

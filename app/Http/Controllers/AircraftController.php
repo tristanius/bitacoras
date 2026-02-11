@@ -10,13 +10,20 @@ class AircraftController extends Controller
 {
     /**
      * Muestra la lista de aeronaves.
+     * $aircrafts = Aircraft::with('aircraft_model.category')->get();
      */
     public function index()
     {
-        // Traemos las aeronaves con su modelo y la categoría de ese modelo
-        $aircrafts = Aircraft::with('aircraft_model.category')->get();
+        $user = auth()->user();
+        $aircrafts = [];
+        if ($user->hasRole('Admin')) {
+            $aircrafts = Aircraft::with('aircraft_model.category')->get();
+        } else {
+            // Solo traemos las aeronaves que pertenecen al piloto autenticado
+            $aircrafts = auth()->user()->aircrafts()->with('aircraft_model.category')->get();
+        }
         
-        // Traemos los modelos para el select del Modal
+        // Los modelos siguen siendo globales para que cualquiera pueda elegir uno al registrar
         $models = AircraftModel::with('category')->get(); 
         
         return view('aircrafts.index', compact('aircrafts', 'models'));
@@ -27,19 +34,23 @@ class AircraftController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'registration' => 'required|unique:aircraft|max:20',
-            #'brand'        => 'required|string|max:100',
-            'aircraft_model_id' => 'required|exists:aircraft_models,id', // El select
+        $request->validate([
+            'registration' => 'required|max:20', // Quitamos 'unique:aircraft'
+            'aircraft_model_id' => 'required|exists:aircraft_models,id',
         ]);
 
-        // Estandarizamos la matrícula a mayúsculas (Ej: tg-abc -> TG-ABC)
-        $validated['registration'] = strtoupper($request->registration);
+        $registration = strtoupper($request->registration);
 
-        Aircraft::create($validated);
+        // LÓGICA DE UNICIDAD: Buscamos si ya existe o la creamos
+        $aircraft = Aircraft::firstOrCreate(
+            ['registration' => $registration],
+            ['aircraft_model_id' => $request->aircraft_model_id, 'is_active' => true]
+        );
 
-        #return redirect()->route('aircraft.index')->with('success', 'Aeronave registrada con éxito.');
-        return redirect()->back()->with('success', 'Aeronave registrada con éxito.');
+        // LÓGICA DE ASOCIACIÓN: La vinculamos al usuario actual sin duplicar en la pivot
+        auth()->user()->aircrafts()->syncWithoutDetaching([$aircraft->id]);
+
+        return redirect()->back()->with('success', 'Aeronave añadida a su flota con éxito.');
     }
 
     public function update(Request $request, Aircraft $aircraft)
@@ -74,11 +85,24 @@ class AircraftController extends Controller
             return redirect()->back()->with('error', 'No tienes permiso para eliminar aeronaves.');
         }
 
+        if ($aircraft->users()->count() > 0) {
+            return redirect()->back()->with('error', 'No se puede eliminar: Hay pilotos que aún tienen esta aeronave en su flota.');
+        }
+
         try {
             $aircraft->delete();
             return redirect()->back()->with('success', 'Aeronave eliminada del sistema.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'No se puede eliminar: esta aeronave ya tiene registros de vuelo.');
         }
+    }
+
+    /**
+     * Para los pilotos: Quitar de su flota personal.
+     */
+    public function detach(Aircraft $aircraft)
+    {
+        auth()->user()->aircrafts()->detach($aircraft->id);
+        return redirect()->back()->with('success', 'Aeronave quitada de su flota personal.');
     }
 }

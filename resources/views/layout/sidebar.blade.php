@@ -91,10 +91,10 @@
                         <ul class="sidebar-submenu">
                             @hasanyrole('Admin|Oficial de Operaciones')
                             <li><a href="{{ route('aircraft_categories.index') }}">Categorías</a></li>
-                            <li><a href="{{ route('aircraft_models.index') }}">Modelos </a></li>
                             @endhasanyrole
                             @hasanyrole('Admin|Oficial de Operaciones|Piloto')
-                            <li><a href="{{ route('aircraft.index') }}"> Aeronaves</a></li>
+                            <li><a href="{{ route('aircraft_models.index') }}">Modelos </a></li>
+                            <li><a href="{{ route('aircraft.index') }}"> Mis Aeronaves</a></li>
                             @endhasanyrole
                         </ul>
                     </li>
