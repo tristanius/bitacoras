@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.page-wrapper .sidebar-wrapper .sidebar-main #sidebar-menu .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper{
+    height: 90vh !important;
+}

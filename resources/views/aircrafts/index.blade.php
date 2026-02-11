@@ -7,18 +7,22 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6">
-                <h3>Gestión de Aeronaves</h3>
+            <div class="col-6 col-sm-12 ">
+                <h3>Gestión de Aeronaves</h3> <br>
             </div>
-            <div class="col-6 text-end">
-                </div>
+            <div class="col-6 col-sm-12  text-end">
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createAircraftModal">
+                    <i class="fa fa-plus"></i> Nueva Aeronave
+                </button>
+            </div>
         </div>
     </div>
 
     <div>
-        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createAircraftModal">
-            <i class="fa fa-plus"></i> Nueva Aeronave
-        </button>
+        <div class="alert"> 
+            No ves el modelo que buscas? Puedes registrarlo: 
+            <a class="btn btn-info btn-sm" href="{{ route('aircraft_models.index') }}" class="alert-link">aquí.</a> 
+        </div>
         <hr>
         
         @error('registration')
@@ -48,8 +52,10 @@
                                 @foreach($aircrafts as $aircraft)
                                 <tr>
                                     <td><strong>{{ $aircraft->registration }}</strong></td>
-                                    <td>{{ $aircraft->aircraft_model->manufacturer }} {{ $aircraft->aircraft_model->name }}</td>
-                                    <td><span class="badge badge-light-primary">{{ $aircraft->aircraft_model->category->name }}</span></td>
+                                    <td>{{ $aircraft->aircraft_model->manufacturer }} / {{ $aircraft->aircraft_model->name }}</td>
+                                    <td>
+                                        <span class="badge badge-light-primary">{{ $aircraft->aircraft_model->category->name }}</span>
+                                    </td>
                                     <td>
                                         <span class="badge {{ $aircraft->is_active ? 'bg-success' : 'bg-danger' }}">
                                             {{ $aircraft->is_active ? 'Activo' : 'Inactivo' }}

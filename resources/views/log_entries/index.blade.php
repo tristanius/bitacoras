@@ -11,7 +11,17 @@
 @section('content')
 <hr>
 <div class="container-fluid">
-    
+    <div class="page-title">
+        <div class="row">
+            <div class="col-md-6 col-sm-12"><h3>Mis vuelos - registros</h3> <br></div>
+            <div class="col-md-6 col-sm-12">
+                <a href="{{ route('log_entries.create') }}" class="btn btn-primary shadow-sm fw-bold float-end">
+                    <i class="fa fa-plus-circle"></i> + LogEntry
+                </a>
+            </div>
+        </div>
+        
+    </div>
     {{-- CABECERA: Perfil y Estadísticas (Según su mockup) --}}
     <div class="row">
         <div class="col-sm-12">
@@ -61,15 +71,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    {{-- BOTÓN DE ACCIÓN --}}
-    <div class="row mb-3">
-        <div class="col-12 text-end">
-            <a href="{{ route('log_entries.create') }}" class="btn btn-primary shadow-sm fw-bold">
-                <i class="fa fa-plus-circle"></i> + LogEntry
-            </a>
         </div>
     </div>
 

@@ -8,10 +8,10 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <h3>Gestión de Pilotos</h3>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12 text-end">
                 <button class="btn btn-primary float-end" type="button" data-bs-toggle="modal" data-bs-target="#createPilotModal">
                     <i class="fa fa-plus"></i> Nuevo Piloto
                 </button>
@@ -57,7 +57,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40px me-3">
                                         @if($pilot->profile_photo)
-                                            <img src="{{ asset('storage/' . $pilot->profile_photo) }}" alt="Avatar" style="object-fit: cover;" height="50">
+                                            <img src="{{ asset('storage/' . $pilot->profile_photo) }}" alt="Avatar" style="object-fit: cover;" width="50">
                                         @else
                                             <div class="symbol-label fs-4 fw-bold bg-soft-primary text-primary">
                                                 {{ substr($pilot->name, 0, 1) }}

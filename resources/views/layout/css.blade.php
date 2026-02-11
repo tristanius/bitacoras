@@ -19,6 +19,8 @@
 <!-- App css-->
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+@vite(['resources/css/app.css'])
+<!-- JS css-->
 @vite(['resources/js/app.js'])
 
 <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen">

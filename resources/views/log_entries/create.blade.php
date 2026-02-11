@@ -115,19 +115,24 @@
             <div class="col-lg-4">
                 <div class="card bg-dark text-white shadow-none">
                     <div class="card-body">
-                        <h5 class="card-title text-white">Cómputo Hobbs</h5>
+                        <h5 class="card-title text-white">TIEMPO TOTAL</h5>
                         <hr class="border-light">
+                        
+                        <input type="hidden" step="0.1" name="hobbs_out" id="hobbs_out" class="form-control border-0" value="0">
+                        <input type="hidden" step="0.1" name="hobbs_in" id="hobbs_in" class="form-control border-0"  value="0">
+                        
                         <div class="mb-3">
-                            <label>Hobbs Out</label>
-                            <input type="number" step="0.1" name="hobbs_out" id="hobbs_out" class="form-control border-0" value="0">
+                            <label><strong>Total Time</strong></label>
+                            <input type="number" 
+                                name="total_time" 
+                                id="total_time" 
+                                step="0.1" value="0.0" 
+                                class="form-control border-0" 
+                                style="font-size: 1.2em"
+                                />
                         </div>
-                        <div class="mb-3">
-                            <label>Hobbs In</label>
-                            <input type="number" step="0.1" name="hobbs_in" id="hobbs_in" class="form-control border-0">
-                        </div>
-                        <div class="alert alert-light py-2 text-center text-dark fw-bold mb-0">
+                        <div style="display: none" class="alert alert-light py-2 text-center text-dark fw-bold mb-0">
                             Total: <span id="total_display">0.0</span> hrs
-                            <input type="hidden" name="total_time" id="total_time" value="0.0">
                         </div>
                     </div>
                 </div>
@@ -180,15 +185,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         
         // Lógica de cálculo Hobbs
-        const hOut = document.getElementById('hobbs_out');
-        const hIn = document.getElementById('hobbs_in');
+        //const hOut = document.getElementById('hobbs_out');
+        //const hIn = document.getElementById('hobbs_in');
         const totalInp = document.getElementById('total_time');
         const totalDisp = document.getElementById('total_display');
 
         function calcular() {
-            const res = (parseFloat(hIn.value) || 0) - (parseFloat(hOut.value) || 0);
-            const final = res > 0 ? res.toFixed(2) : 0.00;
-            totalInp.value = final;
+            //const res = (parseFloat(hIn.value) || 0) - (parseFloat(hOut.value) || 0);
+            //const final = res > 0 ? res.toFixed(2) : 0.00;
+            let final = (parseFloat(totalInp.value);
             totalDisp.innerText = final;
         }
 

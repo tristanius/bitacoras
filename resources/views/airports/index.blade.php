@@ -7,18 +7,19 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6">
-                <h3>Gestión de Aeropuertos</h3>
+            <div class="col-md-6 col-sm-12">
+                <h3>Gestión de Aeropuertos</h3> <br>
             </div>
-            <div class="col-6 text-end">
-                </div>
+            <div class="col-md-6 col-sm-12 text-end">
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createAirportModal">
+                    <i class="fa fa-plus"></i> Nuevo Aeropuerto
+                </button>
+            </div>
         </div>
     </div>
 
     <div>
-        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createAirportModal">
-            <i class="fa fa-plus"></i> Nuevo Aeropuerto
-        </button>
+        
         <hr>
         
         @error('icao_code')

@@ -13,8 +13,8 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6"><h3>Modelos de Aeronaves</h3></div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12"><h3>Modelos de Aeronaves</h3></div>
+            <div class="col-md-6 col-sm-12 text-end">
                 <button class="btn btn-primary float-end" type="button" data-bs-toggle="modal" data-bs-target="#modalCreateModel">
                     <i class="fa fa-plus"></i> Nuevo Modelo
                 </button>

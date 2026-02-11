@@ -12,10 +12,10 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6">
-                <h3>Categorías de Aeronaves</h3>
+            <div class="col-md-6 col-sm-12">
+                <h3>Categorías de Aeronaves</h3><br>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12 text-end">
                 <button class="btn btn-primary float-end" type="button" data-bs-toggle="modal" data-bs-target="#modalCreateCategory">
                     <i class="fa fa-plus"></i> Nueva Categoría
                 </button>

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -26,15 +28,37 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    {   
+        $user = $request->user(); 
+        $validated = $request->validate([
+            'name'  => 'required|string|max:255',
+            'doc_number' => 'required|unique:users,doc_number,' . $user->id,
+            'doc_type' => 'required|string|max:25',
+            'license_number' => 'required|unique:users,license_number,' . $user->id,
+            'medical_certificate_expiry' => 'required|date',
+            'phone' => 'nullable|string',
+            #'email' => 'required|email|unique:users,email,' . $user->id,
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->hasFile('photo')) {
+            // Borrar foto anterior si existe (opcional)
+            if($user->profile_photo != null) {
+                Storage::delete($user->profile_photo);
+            }         
+            $path = $request->file('photo')->store('profiles', 'public');
+            $user->profile_photo = $path;
         }
-
-        $request->user()->save();
-
+        $user->fill([
+            'name'  => $validated['name'],
+            'doc_number'  => $validated['doc_number'],
+            'doc_type'  => $validated['doc_type'],
+            'license_number'  => $validated['license_number'],
+            'medical_certificate_expiry'  => $validated['medical_certificate_expiry'],
+            'phone'  => $validated['phone'],
+            #'email' => $validated['email'],
+        ]);
+        $user->save();
         return Redirect::route('profile.show')->with('status', 'profile-updated');
     }
 

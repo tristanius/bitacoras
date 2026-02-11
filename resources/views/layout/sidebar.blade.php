@@ -18,9 +18,9 @@
         <div class="logo-icon-wrapper">
             <a href="{{ route('dashboard') }}">
                 <img class="img-fluid for-light"
-                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="">
+                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="" width="50">
                 <img class="img-fluid for-dark"
-                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="" style="background-color: #F7F9FC; padding:2px;">
+                    src="{{ asset('assets/images/logo/icon-avion.png') }}" alt="" width="50" style="background-color: #F7F9FC; padding:2px;">
             </a>
         </div>        
         
@@ -115,7 +115,7 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('users.index') }}">
-                            <i class="fa fa-user-circle-o"></i>
+                            <i class="fa fa-users"></i> 
                             <span>Usuarios</span>
                         </a>
                     </li>
@@ -134,7 +134,7 @@
                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('profile.show') }}">
-                            <i data-feather="users"></i> 
+                            <i class="fa fa-user-circle-o"></i>
                             <span>Mi cuenta</span>
                         </a>
                     </li>
