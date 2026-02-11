@@ -8,53 +8,80 @@
 @endsection
 
 @section('content')
-<div class="container-fluid" style="background-image: url('{{ asset('assets/images/login/banner.jpeg') }}')">
+<div class="container-fluid">
     
 
     <div class="row">
-        <div class="col-xl-8 col-lg-8">
-            <div class="card profile-greeting">
+        <div class="col-xl-7 col-lg-7">
+            <div class="card profile-greeting" style="height: fit-content;">
                 <div class="card-body" style="background-color: #183053 !important;">
                     <div>
                         <h1>Bienvenido,  {{ auth()->user()->name }} </h1>
-                        <p>  {{ Auth::user()->getRoleNames()->first() }} </p>
-                        <p>  {{ Auth::user()->email }} </p>
-                        <a class="btn" href="{{ route('profile.show') }}">Mi cuenta<i data-feather="arrow-right"></i></a>
+                        <br>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1 ms-7">
+                                <p class="mb-0 opacity-75">Tienes <strong>{{ $userStats['my_total_hours'] }}</strong> horas acumuladas. Tu último vuelo fue el {{ optional($userStats['my_last_flight'])->date ?? 'N/A' }}.</p>
+                                <br>
+                                <p>Ya estamos listos para el siguiente.<br><br>
+    
+                                    Alcanza tus metas y mantén tu bitácora siempre al día.<br>
+                                    Registra tu próximo vuelo ahora.
+                                </p>
+                            </div>
+                            <div class="text-end d-none d-md-block">
+                                <span class="badge bg-light text-primary p-2 px-3 text-uppercase">{{ $userStats['role'] }}</span>
+                            </div>
+                            
+                        </div>
+                        <br>
+                        <a class="btn" href="{{ route('log_entries.index') }}">+ Log Entry<i data-feather="arrow-right"></i></a>
                     </div>
                     <div class="greeting-img">
-                        <img class="img-fluid" src="{{ asset('assets/images/login/banner.jpeg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('assets/images/logo/recurso1.png') }}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-lg-4">
+        
+        <div class="col-xl-5 col-lg-5">
             <div class="card bg-primary text-white shadow-sm border-0">
                 <div class="card-body p-4">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0">
-                            @if(auth()->user()->profile_photo)
-                                <img src="{{ asset('storage/'.auth()->user()->profile_photo) }}" class="rounded-circle img-thumbnail" style="width: 80px; height: 80px;">
-                            @else
-                                <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                                    <h2 class="mb-0">{{ substr($user->name, 0, 1) }}</h2>
+                    
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="card shadow-none border border-primary text-center">
+                                <div class="card-body">
+                                    <h6 class="text-muted">Total Horas Histórico</h6>
+                                    <h3 class="text-primary">{{ number_format($stats['total_hours'], 1) }}</h3>
                                 </div>
-                            @endif
+                            </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <h3 class="mb-1">¡Bienvenido de nuevo, {{ auth()->user()->name }}!</h3>
-                            <p class="mb-0 opacity-75">Tienes <strong>{{ $userStats['my_total_hours'] }}</strong> horas acumuladas. Tu último vuelo fue el {{ optional($userStats['my_last_flight'])->date ?? 'N/A' }}.</p>
-                            <br>
-                            <p>Ya estamos listos para el siguiente.<br><br>
-
-                                Alcanza tus metas y mantén tu bitácora siempre al día.<br>
-                                Registra tu próximo vuelo ahora
-                            </p>
+                        <div class="col-md-6">
+                            <div class="card shadow-none border border-success text-center">
+                                <div class="card-body">
+                                    <h6 class="text-muted">Vuelos este Mes</h6>
+                                    <h3 class="text-success">{{ $stats['flights_month'] }}</h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-end d-none d-md-block">
-                            <span class="badge bg-light text-primary p-2 px-3 text-uppercase">{{ $userStats['role'] }}</span>
+                        <div class="col-md-6">
+                            <div class="card shadow-none border border-info text-center">
+                                <div class="card-body">
+                                    <h6 class="text-muted">Aeronaves Activas</h6>
+                                    <h3 class="text-info">{{ $stats['active_aircraft'] }}</h3>
+                                </div>
+                            </div>
                         </div>
-                        
+                        <div class="col-md-6">
+                            <div class="card shadow-none border border-warning text-center">
+                                <div class="card-body">
+                                    <h6 class="text-muted">Pendientes Validar</h6>
+                                    <h3 class="text-warning">{{ $stats['pending_validations'] }}</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -64,40 +91,7 @@
         <h4 class="mb-sm-0">Dashboard Operativo</h4>
     </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card shadow-none border border-primary text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Total Horas Histórico</h6>
-                    <h3 class="text-primary">{{ number_format($stats['total_hours'], 1) }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-none border border-success text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Vuelos este Mes</h6>
-                    <h3 class="text-success">{{ $stats['flights_month'] }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-none border border-info text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Aeronaves Activas</h6>
-                    <h3 class="text-info">{{ $stats['active_aircraft'] }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-none border border-warning text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Pendientes Validar</h6>
-                    <h3 class="text-warning">{{ $stats['pending_validations'] }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+   <hr>
 
     <div class="row mt-4">
         <div class="col-lg-8">
@@ -167,7 +161,7 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-4" style="display:none">
         
         
         <div class="col-lg-8">

@@ -1,14 +1,31 @@
 @extends('others.layout_others.master')
 
-
+    <style>
+         /* Aplicación global */.
+        body {
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: 1em;
+        }
+        body, h1, h2, h3, h4, h5, h6, .btn, .form-control, .sidebar-link, .page-title {
+            font-family: 'Montserrat', sans-serif !important;
+            letter-spacing: 0.1px;
+        }
+    
+        /* Opcional: Para que los textos de los inputs no se vean tan pesados, 
+        podemos dejar el peso normal pero la misma fuente */
+        input::placeholder, .text-muted, span, p, a, small {
+            font-weight: 400 !important;.
+            letter-spacing: 0.1px;
+            font-size: 1em;
+        }
+    </style>
 @include('partials.alerts')
-@include('partials.monserrat_font')
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-
 @section('others-content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-7"><img class="bg-img-cover bg-center" src="{{ asset('assets/images/login/banner.jpeg') }}" alt="bg2"></div>

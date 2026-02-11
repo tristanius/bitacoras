@@ -43,30 +43,21 @@
                     </li>
                     <li class="sidebar-main-title">
                         <div>
-                            <h4>General </h4>
+                            <h4>Menú </h4>
                         </div>
                     </li>
-                    <li class="sidebar-list"> 
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="home"></i>
+                    
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title link-nav"
+                            href="{{ route('dashboard') }}">
+                            <i class="fa fa-home"></i> 
                             <span class="lan-3">Dashboard</span>
-                            <!-- <span  class="badge badge-primary">2</span> -->
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a class="lan-3" href="{{ route('dashboard') }}">Default</a></li>
-                        </ul>
                     </li>
-
-                   
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h4>Operaciones </h4>
-                        </div>
-                    </li>
-
+                    <hr>
                      <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
+                            <i class="fa fa-table"></i> 
                             <span >Bitácoras</span>
                         </a>
                         <ul class="sidebar-submenu">
@@ -76,43 +67,34 @@
                             <li><a href="{{ route('log_entries.reports') }}">Consultas</a></li>
                             <li><a href="{{ route('reports.index') }}">Reportes</a></li>
                             @hasanyrole('Admin|Oficial de Operaciones')
-                            <li><a href="{{ route('reports.index') }}">Logbook</a></li>
+                            <!--<li><a href="{{ route('reports.index') }}">Logbook</a></li>-->
                             @endhasanyrole  
                         </ul>
-                    </li>                    
-                    @hasanyrole('Admin|Oficial de Operaciones|Piloto')
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h4>Catalogos maestros</h4>
-                        </div>
                     </li>
-                     @endhasanyrole
-                     
+                    <hr>
                     @hasanyrole('Admin|Oficial de Operaciones')
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >Pilotos</span>
+                        <a class="sidebar-link sidebar-title link-nav"
+                            href="{{ route('pilots.index') }}">
+                            <i class="fa fa-id-badge"></i> 
+                            <span>Pilotos</span>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('pilots.index') }}">Gestionar</a></li>
-                        </ul>
                     </li>
                     @endhasanyrole
                     
                     @hasanyrole('Admin|Oficial de Operaciones|Piloto')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
+                            <i class="fa fa-plane"></i> 
                             <span >Aeronaves</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <@hasanyrole('Admin|Oficial de Operaciones')
-                            <li><a href="{{ route('aircraft_categories.index') }}">Categorías de Aeronaves</a></li>
-                            <li><a href="{{ route('aircraft_models.index') }}">Modelos de Aeronaves</a></li>
+                            @hasanyrole('Admin|Oficial de Operaciones')
+                            <li><a href="{{ route('aircraft_categories.index') }}">Categorías</a></li>
+                            <li><a href="{{ route('aircraft_models.index') }}">Modelos </a></li>
                             @endhasanyrole
                             @hasanyrole('Admin|Oficial de Operaciones|Piloto')
-                            <li><a href="{{ route('aircraft.index') }}">Gestionar Aeronave</a></li>
+                            <li><a href="{{ route('aircraft.index') }}"> Aeronaves</a></li>
                             @endhasanyrole
                         </ul>
                     </li>
@@ -120,30 +102,22 @@
                     
                     @hasanyrole('Admin|Oficial de Operaciones')
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >Aeropuertos</span>
+                        <a class="sidebar-link sidebar-title link-nav"
+                            href="{{ route('airports.index') }}">
+                            <i class="fa fa-map-marker"></i> 
+                            <span>Aeropuertos</span>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('airports.index') }}">Gestionar Aeropuertos</a></li>
-                        </ul>
                     </li>
                     @endhasanyrole
+                    
                     @role('Admin')
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h4>Usuarios y roles </h4>
-                        </div>
-                    </li>
-
+                    <hr>
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i data-feather="layout"></i>
-                            <span >Usuarios</span>
+                        <a class="sidebar-link sidebar-title link-nav"
+                            href="{{ route('users.index') }}">
+                            <i class="fa fa-user-circle-o"></i>
+                            <span>Usuarios</span>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('users.index') }}">Gestionar</a></li>
-                        </ul>
                     </li>
                     <!--
                     <li class="sidebar-list">
@@ -156,12 +130,7 @@
                         </ul>
                     </li>-->
                     @endrole
-
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h4> Cuenta y Datos</h4>
-                        </div>
-                    </li>
+                    <hr>
                    <!--<li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('profile.show') }}">
@@ -172,7 +141,7 @@
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('logout') }}">
-                            <i data-feather="users"></i> 
+                            <i class="fa fa-sign-out"></i> 
                             <span>Salir</span>
                         </a>
                     </li>

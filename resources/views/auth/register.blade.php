@@ -4,6 +4,11 @@
 @include('partials.monserrat_font')
 
 @section('others-content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="login-card"> {{-- Clase típica de la plantilla Koho --}}
         <div>
             <div class="login-main"> 

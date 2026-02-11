@@ -73,10 +73,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 class="card-title mb-0">Detalles de la Misión</h5>
-                        @if($log_entry->validated)
-                            <span class="badge bg-success p-2 px-3"><i class="fa fa-check-circle"></i> VUELO VALIDADO</span>
-                        @else
-                            <span class="badge bg-warning text-dark p-2 px-3"><i class="fa fa-clock-o"></i> PENDIENTE DE VALIDACIÓN</span>
+                        @if( isset($log_entry->instructor_id) )
+                            @if($log_entry->validated)
+                                <span class="badge bg-success p-2 px-3"><i class="fa fa-check-circle"></i> VUELO VALIDADO</span>
+                            @else
+                                <span class="badge bg-warning text-dark p-2 px-3"><i class="fa fa-clock-o"></i> PENDIENTE DE VALIDACIÓN</span>
+                            @endif
                         @endif
                     </div>
 

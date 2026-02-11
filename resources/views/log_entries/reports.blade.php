@@ -67,7 +67,7 @@
                     <tbody>
                         @foreach($entries as $entry)
                             <tr  @if(!$entry->is_active) style="background-color: #f8d7da; opacity: 0.7;" @endif>
-                                <td>{{ $entry->date }} </td>
+                                <td>{{ $entry->date }}</td>
                                 <td>{{ $entry->pilot->name }}</td>
                                 <td>{{ $entry->aircraft->registration }}</td>
                                 <td>{{ $entry->origin->icao_code }} ➔ {{ $entry->destination->icao_code }}</td>

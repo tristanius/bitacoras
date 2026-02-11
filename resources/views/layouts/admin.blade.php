@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <!-- All meta and title start-->
@@ -10,6 +10,11 @@
     <!-- css start-->
     @include('layout.css')
     <!-- css end-->
+    
+</head>
+
+<body>
+    
     <style>
         #sidebar-menu .simplebar-offset { 
             min-height: 90vh; 
@@ -40,10 +45,24 @@
         .bg-primary{
             background-color: #183053 !important;
         }
+         /* Aplicación global */.
+        body {
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: 1em;
+        }
+        body, h1, h2, h3, h4, h5, h6, .btn, .form-control, .sidebar-link, .page-title, .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links li a span, .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li .sidebar-submenu li a {
+            font-family: 'Montserrat', sans-serif !important;
+            letter-spacing: 0.1px;
+        }
+    
+        /* Opcional: Para que los textos de los inputs no se vean tan pesados, 
+        podemos dejar el peso normal pero la misma fuente */
+        input::placeholder, .text-muted, span, p, a, small {
+            font-weight: 400 !important;.
+            letter-spacing: 0.1px;
+            font-size: 1em;
+        }
     </style>
-</head>
-
-<body>
     <!-- tap on top starts-->
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <!-- tap on tap ends-->

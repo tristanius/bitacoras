@@ -46,7 +46,7 @@ class LogEntryController extends Controller
                             ->get();
         }
         $totalEntries = $entries->count();
-        $totalHours = isset($sums)? $sums->sum('total_time'): $entries->sum('total_time');
+        $totalHours = isset($sums)? $sums->sum('total_time'): $entries->sum('total_time'); 
 
         return view('log_entries.index', compact('entries', 'totalEntries', 'totalHours'));
     }

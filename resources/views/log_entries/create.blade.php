@@ -119,7 +119,7 @@
                         <hr class="border-light">
                         <div class="mb-3">
                             <label>Hobbs Out</label>
-                            <input type="number" step="0.1" name="hobbs_out" id="hobbs_out" class="form-control border-0">
+                            <input type="number" step="0.1" name="hobbs_out" id="hobbs_out" class="form-control border-0" value="0">
                         </div>
                         <div class="mb-3">
                             <label>Hobbs In</label>

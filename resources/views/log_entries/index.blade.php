@@ -103,16 +103,22 @@
                             <td>{{ $entry->instructor->name ?? 'N/A' }}</td>
                             <td class="fw-bold">{{ $entry->total_time }}</td>
                             <td>
-                                @if($entry->validated)
-                                    <span class="badge bg-success"><i class="fa fa-check"></i> VALIDADO</span>
+                                @if( isset($entry->instructor_id) )
+                                    @if($entry->validated)
+                                        <span class="badge bg-success"><i class="fa fa-check"></i> VALIDADO</span>
+                                    @else
+                                        <span class="badge bg-warning text-dark"><i class="fa fa-clock-o"></i> PENDIENTE</span>
+                                    @endif
                                 @else
-                                    <span class="badge bg-warning text-dark"><i class="fa fa-clock-o"></i> PENDIENTE</span>
+                                    <span>N/A</span>
                                 @endif
                             </td>
                             <td>
                                 <a href="{{ route('log_entries.show', $entry->id) }}" class="btn btn-xs btn-outline-primary"><i class="fa fa-eye"></i></a>
                                 @if($entry->is_active)
+                                @if( (isset($entry->instructor->id) && $entry->instructor->id === auth()->user()->id ) || $entry->pilot->id === auth()->user()->id )
                                 <a href="{{ route('log_entries.edit', $entry->id) }}" class="btn btn-xs btn-outline-info"><i class="fa fa-edit"></i></a>
+                                
                                 {{-- Botón de Deshabilitar --}}
                                 <form action="{{ route('log_entries.destroy', $entry->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Está seguro de deshabilitar este registro?');">
                                     @csrf
@@ -121,6 +127,7 @@
                                         <i class="fa fa-trash-o"></i>
                                     </button>
                                 </form>
+                                @endif
                                 @endif
                             </td>
                         </tr>

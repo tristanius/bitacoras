@@ -1,0 +1,12 @@
+[02-Feb-2026 07:31:32 UTC] PHP Warning:  require(/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php): Failed to open stream: No such file or directory in /home/pilotjourneyapp/bitacoras/public/index.php on line 14
+[02-Feb-2026 07:31:32 UTC] PHP Warning:  require(/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php): Failed to open stream: No such file or directory in /home/pilotjourneyapp/bitacoras/public/index.php on line 14
+[02-Feb-2026 07:31:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home/pilotjourneyapp/bitacoras/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/pilotjourneyapp/bitacoras/public/index.php on line 14
+[02-Feb-2026 07:31:52 UTC] PHP Warning:  require(/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php): Failed to open stream: No such file or directory in /home/pilotjourneyapp/bitacoras/public/index.php on line 14
+[02-Feb-2026 07:31:52 UTC] PHP Warning:  require(/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php): Failed to open stream: No such file or directory in /home/pilotjourneyapp/bitacoras/public/index.php on line 14
+[02-Feb-2026 07:31:52 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/pilotjourneyapp/bitacoras/public/../bitacoras/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home/pilotjourneyapp/bitacoras/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/pilotjourneyapp/bitacoras/public/index.php on line 14

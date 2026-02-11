@@ -22,7 +22,7 @@
             <tr>
                 <th rowspan="2">Fecha</th>
                 <th rowspan="2">Avión</th>
-                <th rowspan="2">Class</th>
+                <th rowspan="2">Model / Class</th>
                 <th colspan="2">Ruta</th>
                 <th colspan="2">Hobbs</th>
                 <th rowspan="2">Total</th>
@@ -51,7 +51,7 @@
                 <td>{{ $entry->solo_time }}</td>
                 <td>{{ $entry->dual_time }}</td>
                 <td>{{ $entry->xc_time }}</td>
-                <td>{{ $entry->instructor->name ?? 'N/A' }}</td>
+                <td>{{ $entry->instructor->name ?? 'N/A' }} - {{ $entry->validated? '(OK)':'' }}</td>
             </tr>
             @endforeach
         </tbody>

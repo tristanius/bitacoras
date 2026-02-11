@@ -16,25 +16,23 @@
         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
       </div>
       <div class="left-header col horizontal-wrapper ps-0">
-        
+        <div class="input-group">
+            <a href="{{ route('/')}}" class="d-block d-md-none">
+                <img src="{{ asset('assets/images/logo/logo.png') }}" width="50" class="d-block d-md-none" />
+            </a>
+        </div>
       </div>
       <div class="nav-right col-6 pull-right right-header p-0">
         <ul class="nav-menus">
-          <li class="language-nav">
-            <div class="translate_wrapper">
-              <div class="current_lang">
-                <div class="lang"><i class="flag-icon flag-icon-es"></i><span class="lang-txt">ES                               </span></div>
-              </div>
-              <div class="more_lang">                
-                <div class="lang selected" data-value="es"><i class="flag-icon flag-icon-es"></i><span class="lang-txt">Español <span>(ES)</span> </span></div>
-                <div class="lang" data-value="en"><i class="flag-icon flag-icon-us"></i><span class="lang-txt">English<span> (US)</span></span></div>
-              </div>
-            </div>
-          </li>
-                    
+                
           <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
           <li class="profile-nav onhover-dropdown p-0 me-0">
-            <div class="d-flex profile-media"><img class="b-r-50" src="{{ asset('assets/images/dashboard/profile.png') }}" alt="">
+            <div class="d-flex profile-media">
+                @if(Auth::user()->profile_photo)
+                    <img class="b-r-50"  src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Avatar" style="object-fit: cover;" height="50">
+                @else
+                    <img class="b-r-50" src="{{ asset('assets/images/dashboard/profile.png') }}" alt="">
+                @endif
               <div class="flex-grow-1"><span> {{ Auth::user()->name }} </span>
                 <p class="mb-0 font-roboto"> {{ Auth::user()->getRoleNames()->first() }} <i class="middle fa fa-angle-down"></i></p>
               </div>
@@ -48,7 +46,8 @@
       </div>
       <script class="result-template" type="text/x-handlebars-template">
         <div class="ProfileCard u-cf">
-        <div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
+        <div class="ProfileCard-avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
         <div class="ProfileCard-details">
         {{-- <div class="ProfileCard-realName">{{name}}</div> --}}
         </div>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 Route::get('/', [DashboardController::class, 'index'])->name('/')->middleware(['auth']);
@@ -127,10 +128,8 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-//-----------------------------------
-// Logout
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-Route::any('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
 
 // Users
 Route::view('edit-profile', 'users.edit_profile')->name('edit-profile');
@@ -145,6 +144,7 @@ Route::view('unlock', 'others.authentication.unlock')->name('unlock');
 Route::view('forget-password', 'others.authentication.forget_password')->name('forget-password');
 Route::view('reset-password', 'others.authentication.reset_password')->name('reset-password');
 Route::view('maintenance', 'others.authentication.maintenance')->name('maintenance');
+Route::any('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 require __DIR__.'/auth.php';
