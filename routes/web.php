@@ -32,13 +32,14 @@ Route::get('/test-design', function () {
 
 
 // Gestión de Aeropuertos
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin|Oficial de Operaciones|Piloto'])->group(function () {
     Route::resource('airports', AirportController::class);
     // Ruta rápida para activar/desactivar
     Route::patch('airports/{airport}/toggle', [AirportController::class, 'toggleStatus'])->name('airports.toggle');
+    Route::post('airports/{airport}/detach', [AirportController::class, 'detach'])->name('airports.detach');
 });
 
-Route::middleware(['auth', 'role:Admin|Oficial de Operaciones'])->group(function () {
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::delete('airports/{airport}', [AirportController::class, 'destroy'])->name('airports.destroy');
 });
 

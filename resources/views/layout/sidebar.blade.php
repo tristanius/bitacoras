@@ -100,7 +100,7 @@
                     </li>
                     @endhasanyrole
                     
-                    @hasanyrole('Admin|Oficial de Operaciones')
+                    @hasanyrole('Admin|Oficial de Operaciones|Piloto')
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('airports.index') }}">

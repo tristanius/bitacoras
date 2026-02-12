@@ -39,7 +39,9 @@ class LogEntryController extends Controller
         }
         else {
             $entries = $query->where('pilot_id', $user->id)
-                            ->orderBy('date', 'desc')->latest()->paginate(100);
+                            ->orderBy('date', 'desc')
+                            ->latest()
+                            ->paginate(100);
             $sums = $query->where('pilot_id', $user->id)
                             ->orderBy('date', 'desc')
                             ->where('is_active',true)
@@ -53,16 +55,26 @@ class LogEntryController extends Controller
 
     public function create()
     {
-        $aircrafts = Aircraft::where('is_active', true)->get();
-        $airports = Airport::where('is_active', true)->get();
-        // Solo usuarios que sean pilotos o instructores activos
+        $user = auth()->user();
+        if ($user->hasRole('Admin')) {
+            $aircrafts = Aircraft::where('is_active', true)->get();
+            $airports = Airport::where('is_active', true)->get();
+        } else {
+            $aircrafts = $user->aircrafts()->where('is_active', true)->get();
+            $airports = Airport::where('is_public', true)
+                ->orWhereHas('users', function($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->where('is_active', true)
+                ->get();
+        }
+        
         $instructors = User::role('Instructor')->where('is_active', true)->get();
-
         return view('log_entries.create', compact('aircrafts', 'airports', 'instructors'));
     }
 
     public function store(Request $request)
-    {
+    {   
         $validated = $request->validate([
             'aircraft_id' => 'required|exists:aircraft,id',
             'origin_id' => 'required|exists:airports,id',
@@ -87,6 +99,11 @@ class LogEntryController extends Controller
             'instructor_id' => 'nullable|exists:users,id',
             'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240'
         ]);
+        
+        $user = auth()->user();
+        if (!$user->aircrafts->contains($request->aircraft_id)) {
+            return back()->withErrors(['aircraft_id' => 'No tienes permiso para usar esta aeronave.'])->withInput();
+        }
 
         return DB::transaction(function () use ($request) {
             $data = $request->all();

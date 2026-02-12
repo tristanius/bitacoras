@@ -37,17 +37,26 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Código ICAO</th>
+                                    <th>Código ICAO/IATA</th>
                                     <th>Nombre del Aeropuerto</th>
                                     <th>Estado</th>
+                                    <th>Privacidad</th>
+                                    @if(auth()->user()->hasRole('Admin'))
                                     <th>Cambiar estado</th>
-                                    <th>Eliminar</th>
+                                    @endif
+                                    <th>
+                                        @if(auth()->user()->hasRole('Admin'))
+                                        Eliminar
+                                        @else
+                                        Quitar
+                                        @endif
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($airports as $airport)
-                                <tr>
-                                    <td><strong>{{ $airport->icao_code }}</strong></td>
+                               <tr>
+                                    <td>{{ $airport->icao_code }}</td>
                                     <td>{{ $airport->name }}</td>
                                     <td>
                                         <span class="badge {{ $airport->is_active ? 'bg-success' : 'bg-danger' }}">
@@ -55,21 +64,32 @@
                                         </span>
                                     </td>
                                     <td>
+                                        @if($airport->is_public)
+                                            <span class="badge badge-info">Público</span>
+                                        @else
+                                            <span class="badge badge-warning">Privado</span>
+                                        @endif
+                                    </td>
+                                    @if(auth()->user()->hasRole('Admin'))
+                                    <td>
                                         <form action="{{ route('airports.toggle', $airport) }}" method="POST">
                                             @csrf @method('PATCH')
                                             <button class="btn btn-sm btn-light">Cambiar Estado</button>
                                         </form>
                                     </td>
+                                    @endif
                                     <td>
-                                        @role('Admin')
-                                            <form action="{{ route('airports.destroy', $airport) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este aeropuerto?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i> Eliminar
-                                                </button>
+                                        @if(auth()->user()->hasRole('Admin'))
+                                            <form action="{{ route('airports.destroy', $airport->id) }}" method="POST" style="display:inline;">
+                                                @csrf @method('DELETE')
+                                                <button class="btn btn-danger btn-xs" type="submit">Eliminar</button>
                                             </form>
-                                        @endrole
+                                        @elseif(!$airport->is_public)
+                                            <form action="{{ route('airports.detach', $airport->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button class="btn btn-warning btn-xs" type="submit">quitar</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -94,12 +114,19 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Código ICAO (4 letras)</label>
-                        <input class="form-control @error('icao_code') is-invalid @enderror" name="icao_code" type="text" value="{{ old('icao_code') }}" placeholder="Ej: MGGT" maxlength="4" required style="text-transform:uppercase">
+                        <label class="form-label">Código ICAO/IATA</label>
+                        <input class="form-control @error('icao_code') is-invalid @enderror" name="icao_code" 
+                            type="text" value="{{ old('icao_code') }}" placeholder="Ej: MGGT" maxlength="25" 
+                            required 
+                            style="text-transform:uppercase">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre del Aeropuerto</label>
                         <input class="form-control" name="name" type="text" placeholder="Ej: Puerto Barrios" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Es publico?</label>
+                        <input class="form-control form-check-input" name="is_public" type="checkbox" value="0">
                     </div>
                 </div>
                 <div class="modal-footer">
