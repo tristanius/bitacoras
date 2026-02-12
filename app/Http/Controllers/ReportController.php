@@ -23,9 +23,8 @@ class ReportController extends Controller
 
         return view('reports.index', compact('pilots', 'aircrafts'));
     }
-    /**
-     * Reporte para Piloto
-     */
+    /*
+    *Reporte para Piloto
     public function downloadPilotLogbook(Request $request)
     {
         $request->validate([
@@ -46,6 +45,30 @@ class ReportController extends Controller
                   ->setPaper('letter', 'landscape'); // Formato horizontal
 
         return $pdf->download("Logbook_Piloto_{$pilot->name}.pdf");
+    }*/
+    public function downloadPilotLogbook(Request $request)
+    {
+        $request->validate([
+            'pilot_id' => 'required|exists:users,id',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+
+        $pilot = User::findOrFail($request->pilot_id);
+        
+        $entries = LogEntry::with(['aircraft.aircraft_model', 'origin', 'destination'])
+            ->where('pilot_id', $pilot->id)
+            ->whereBetween('date', [$request->start_date, $request->end_date])
+            ->where('is_active', true)
+            ->orderBy('date', 'asc')
+            ->get();
+        
+        $chunks = $entries->chunk(12);
+
+        $pdf = Pdf::loadView('reports.pilot_logbook_pdf', compact('chunks', 'pilot', 'request'))
+                ->setPaper('letter', 'landscape'); // Siempre horizontal
+
+        return $pdf->download("Logbook_{$pilot->name}.pdf");
     }
 
     /**
