@@ -53,7 +53,7 @@
             'JET' => 0,
             'HELI' => 0,
             'GLIDER' => 0,
-            'PCATO' => 0,
+            'PCATD' => 0,
             ];
     @endphp
 
@@ -85,7 +85,7 @@
                 'JET' => $chunk->filter(fn($e) => str_contains($e->aircraft->aircraft_model->category->name ?? '', 'JET'))->sum('total_time'),
                 'HELI' => $chunk->filter(fn($e) => str_contains($e->aircraft->aircraft_model->category->name ?? '', 'HELI'))->sum('total_time'),
                 'GLIDER' => $chunk->filter(fn($e) => str_contains($e->aircraft->aircraft_model->category->name ?? '', 'GLIDER'))->sum('total_time'),
-                'PCATO' => $chunk->filter(fn($e) => str_contains($e->aircraft->aircraft_model->category->name ?? '', 'PCATO'))->sum('total_time'),
+                'PCATD' => $chunk->filter(fn($e) => str_contains($e->aircraft->aircraft_model->category->name ?? '', 'PCATD'))->sum('total_time'),
             ];
             // Actualizamos el "To Date" para la siguiente página
             foreach($totalsToDate as $key => $val) { $totalsToDate[$key] += $pageTotals[$key]; }
@@ -121,7 +121,7 @@
                         <th>JET</th>
                         <th>HELI</th>
                         <th>CLIDER</th>
-                        <th>PCATO</th>
+                        <th>PCATD</th>
                         <th>D</th>
                         <th>N</th>
                     </tr>
@@ -130,7 +130,7 @@
                     @foreach($chunk as $entry)
                     <tr>
                         <td>{{ $entry->date }}</td>
-                        <td>{{ $entry->aircraft->aircraft_model->name ?? '' }}</td>
+                        <td>{{ $entry->aircraft->aircraft_model->name ?? '' }} <br> {{ $entry->aircraft->aircraft_model->category->description ?? '' }}</td>
                         <td>{{ $entry->aircraft->registration }}</td>
                         <td>{{ $entry->origin->icao_code }}</td>
                         <td>{{ $entry->destination->icao_code }}</td>
@@ -142,7 +142,7 @@
                         <td>{{ ($entry->aircraft->model->category->name == "JET")?number_format($entry->total_time, 1): 0; }}</td>
                         <td>{{ ($entry->aircraft->model->category->name == "HELI")?number_format($entry->total_time, 1): 0; }}</td>
                         <td>{{ ($entry->aircraft->model->category->name == "GLIDER")?number_format($entry->total_time, 1): 0; }}</td>
-                        <td>{{ ($entry->aircraft->model->category->name == "PCATO")?number_format($entry->total_time, 1): 0; }}</td>
+                        <td>{{ ($entry->aircraft->model->category->name == "PCATD")?number_format($entry->total_time, 1): 0; }}</td>
                         <td>{{ $entry->landings_day }}</td>
                         <td>{{ $entry->landings_night }}</td>
                     </tr>
@@ -167,7 +167,7 @@
                         <th>{{ number_format($classPage['JET'], 1) }}</th>
                         <th>{{ number_format($classPage['HELI'], 1) }}</th>
                         <th>{{ number_format($classPage['GLIDER'], 1) }}</th>
-                        <th>{{ number_format($classPage['PCATO'], 1) }}</th>
+                        <th>{{ number_format($classPage['PCATD'], 1) }}</th>
                         <th>{{ $pageTotals['land_d'] }}</th>
                         <th> {{$pageTotals['land_n'] }}</th>
                     </tr>
@@ -181,7 +181,7 @@
                         <th>{{number_format($classForwarded['JET'], 1) }}</th>
                         <th>{{number_format($classForwarded['HELI'], 1) }}</th>
                         <th>{{number_format($classForwarded['GLIDER'], 1) }}</th>
-                        <th>{{number_format($classForwarded['PCATO'], 1) }}</th>
+                        <th>{{number_format($classForwarded['PCATD'], 1) }}</th>
                         <th>{{ $amountForwarded['land_d'] }}</th>
                         <th> {{$amountForwarded['land_n'] }}</th>
                     </tr>
@@ -195,7 +195,7 @@
                         <th>{{number_format($classTotals['JET'], 1) }}</th>
                         <th>{{number_format($classTotals['HELI'], 1) }}</th>
                         <th>{{number_format($classTotals['GLIDER'], 1) }}</th>
-                        <th>{{number_format($classTotals['PCATO'], 1) }}</th>
+                        <th>{{number_format($classTotals['PCATD'], 1) }}</th>
                         <th>{{ $totalsToDate['land_d'] }}</th>
                         <th> {{$totalsToDate['land_n'] }}</th>
                     </tr>

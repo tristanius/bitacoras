@@ -124,10 +124,14 @@
                         <label class="form-label">Nombre del Aeropuerto</label>
                         <input class="form-control" name="name" type="text" placeholder="Ej: Puerto Barrios" required>
                     </div>
+                    @if(auth()->user()->hasRole('Admin'))
                     <div class="mb-3">
                         <label class="form-label">Es publico?</label>
                         <input class="form-control form-check-input" name="is_public" type="checkbox" value="0">
                     </div>
+                    @else
+                    <input class="form-control form-check-input" name="is_public" type="hidden" value="0">
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>

@@ -27,7 +27,7 @@ class AirportController extends Controller
         ]);
 
         $icao = strtoupper($request->icao_code);
-        if($request->has('is_public')) {
+        if($request->has('is_public') && $request->is_public != 0) {
             $request->is_public = true;
         }else{
             $request->is_public = false;
