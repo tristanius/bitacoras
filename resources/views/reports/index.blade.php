@@ -6,8 +6,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-        <h4 class="mb-sm-0">Centro de Descargas - Logbooks Oficiales</h4>
+    <div class="page-title">
+        <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Centro de Descargas - Logbooks Oficiales</h3>
+        </div>
+        <br>
+        </div>
     </div>
 
     <div class="row">
@@ -53,7 +58,7 @@
                 </div>
             </div>
         </div>
-
+        @role('Admin')
         <div class="col-md-6">
             <div class="card shadow-none border">
                 <div class="card-header bg-dark py-3">
@@ -87,6 +92,7 @@
                 </div>
             </div>
         </div>
+        @endrole
     </div>
 </div>
 @endsection

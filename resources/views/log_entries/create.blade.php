@@ -21,34 +21,47 @@
                         <h5 class="card-title mb-4">1. Datos de la Misión</h5>
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label>Fecha</label>
+                                <label><strong>Fecha</strong></label>
                                 <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label>Aeronave</label>
-                                <select name="aircraft_id" class="form-select" required>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-6 mb-3">
+                                <label><strong>Aeronave</strong></label>
+                                <select name="aircraft_id" id="aircraft_id" class="form-select select2-aircraft" required>
                                     @foreach($aircrafts as $aircraft)
+                                        <option value="">Buscar aeropuerto...</option>
                                         <option value="{{ $aircraft->id }}"> {{ $aircraft->registration }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label>Origen</label>
-                                <select name="origin_id" class="form-select" required>
+                                <label><strong>Origen</strong></label>
+                                <select name="origin_id" id="origin_id" class="form-select select2-airport" required>
+                                    <option value="">Buscar aeropuerto...</option>
                                     @foreach($airports as $airport)
-                                        <option value="{{ $airport->id }}">{{ $airport->icao_code }} - {{ $airport->name }}</option>
+                                        <option value="{{ $airport->id }}">[{{ $airport->icao_code }}] {{ $airport->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label>Destino</label>
-                                <select name="destination_id" class="form-select" required>
+                                <label><strong>Destino</strong></label>
+                                <select name="destination_id" id="destination_id" class="form-select select2-airport" required>
+                                    <option value="">Buscar aeropuerto...</option>
                                     @foreach($airports as $airport)
-                                        <option value="{{ $airport->id }}">{{ $airport->icao_code }} - {{ $airport->name }}</option>
+                                        <option value="{{ $airport->id }}">[{{ $airport->icao_code }}] {{ $airport->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="col-md-12 mb-3">
+                                <div class="d-flex align-items-left  mb-1">
+                                    <label class="form-label mb-0 alert">¿No ves el aeropuerto que buscas? Puedes registrarlo aquí: &nbsp;</label>
+                                    <button type="button" class="btn btn-sm btn-outline-success py-0" data-bs-toggle="modal" data-bs-target="#quickCreateAirportModal">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p><hr><br></p> 
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label">Instructor (Opcional)</label>
                                 <select name="instructor_id" class="form-control select2-instructor">
                                     <option value="">-- Sin Instructor / Vuelo Solo --</option>
@@ -166,6 +179,34 @@
     </form>
 </div>
 
+<div class="modal fade" id="quickCreateAirportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Creación Rápida de Aeropuerto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="quickAirportForm">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Código ICAO</label>
+                        <input type="text" name="icao_code" class="form-control" placeholder="Ej: MGGT" required maxlength="5" style="text-transform:uppercase">
+                    </div>
+                    <div class="mb-3">
+                        <label>Nombre</label>
+                        <input type="text" name="name" class="form-control" placeholder="Ej: La Aurora" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar y Seleccionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
@@ -193,12 +234,12 @@
         function calcular() {
             //const res = (parseFloat(hIn.value) || 0) - (parseFloat(hOut.value) || 0);
             //const final = res > 0 ? res.toFixed(2) : 0.00;
-            let final = (parseFloat(totalInp.value);
+            let final = (parseFloat(totalInp.value));
             totalDisp.innerText = final;
         }
 
-        hOut.addEventListener('input', calcular);
-        hIn.addEventListener('input', calcular);
+        //hOut.addEventListener('input', calcular);
+        //hIn.addEventListener('input', calcular);
     });
     
     $(document).ready(function() {
@@ -206,6 +247,55 @@
             placeholder: "Seleccione un instructor (opcional)",
             allowClear: true,
             width: '100%'
+        });
+    });
+
+    $(document).ready(function() {
+        $('.select2-aircraft').select2({
+            placeholder: "Seleccione un instructor (opcional)",
+            allowClear: true,
+            width: '100%'
+        });
+    });
+
+    $(document).ready(function() {
+        // 1. Inicializar Select2 en los aeropuertos
+        $('.select2-airport').select2({
+            placeholder: "Escriba código ICAO o nombre...",
+            allowClear: true,
+            width: '100%'
+        });
+
+        // 2. Manejar el guardado por AJAX
+        $('#quickAirportForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: "{{ route('airports.store') }}",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function(response) {
+                    if(response.success) {
+                        
+                        // Añadirla y seleccionarla en Origen (o ambos si prefieres)
+                        $('#origin_id').append(
+                            new Option(response.text, response.id, true, true))
+                            .trigger('change');
+                        $('#destination_id').append(
+                            new Option(response.text, response.id, true, true))
+                            .trigger('change');
+                        
+                        // Limpiar y cerrar modal
+                        $('#quickAirportForm')[0].reset();
+                        $('#quickCreateAirportModal').modal('hide');
+                        
+                        alert('Aeropuerto agregado y seleccionado.');
+                    }
+                },
+                error: function(error) {
+                    alert('Error al crear el aeropuerto. Verifique si el ICAO ya existe.');
+                }
+            });
         });
     });
 </script>

@@ -43,6 +43,15 @@ class AirportController extends Controller
             auth()->user()->airports()->syncWithoutDetaching([$airport->id]);
         }
 
+        // Si la petición viene por AJAX, respondemos con JSON
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'id' => $airport->id,
+                'text' => "[{$airport->icao_code}] {$airport->name}"
+            ]);
+        }
+
         return redirect()->route('airports.index')->with('success', 'Aeropuerto gestionado con éxito.');
     }
     
